@@ -29,6 +29,8 @@ export default function ProductVideoScroll({
     animate(progress, 1, {
       duration: product.animationDuration || ANIMATION_DURATION_SECONDS,
       ease: "linear",
+      repeat: Infinity,
+      repeatType: "loop"
     });
   }, [progress, product.animationDuration]);
 

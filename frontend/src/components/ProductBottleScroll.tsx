@@ -166,12 +166,16 @@ export default function ProductBottleScroll({
     progressAnimRef.current = animate(progress, 1, {
       duration: product.animationDuration || ANIMATION_DURATION_SECONDS,
       ease: "linear",
+      repeat: Infinity,
+      repeatType: "loop"
     });
 
     videoProgress.set(0);
     videoAnimRef.current = animate(videoProgress, 1, {
       duration: product.animationDuration || ANIMATION_DURATION_SECONDS,
       ease: "linear",
+      repeat: Infinity,
+      repeatType: "loop"
     });
   }, [progress, videoProgress, containerRef, product.animationDuration, stopAnimations]);
 
