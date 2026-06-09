@@ -33,9 +33,10 @@ export default function MP4VideoPlayer({
       ([entry]) => {
         if (entry.isIntersecting) {
           setShouldLoad(true);
-          if (autoPlay && videoRef.current) {
-            videoRef.current.play().catch(e => console.log('Autoplay prevented:', e));
-            setIsPlaying(true);
+          // Only play if it was already loaded, otherwise let autoPlay handle it, or use a separate effect
+          if (videoRef.current && videoRef.current.src) {
+             videoRef.current.play().catch(e => console.log('Play prevented:', e));
+             setIsPlaying(true);
           }
         } else {
           if (videoRef.current && !videoRef.current.paused) {
@@ -44,7 +45,7 @@ export default function MP4VideoPlayer({
           }
         }
       },
-      { rootMargin: '300px' }
+      { rootMargin: '400px' }
     );
 
     if (containerRef.current) {
@@ -52,7 +53,13 @@ export default function MP4VideoPlayer({
     }
 
     return () => observer.disconnect();
-  }, [autoPlay]);
+  }, []);
+
+  useEffect(() => {
+    if (shouldLoad && autoPlay && videoRef.current) {
+      videoRef.current.play().then(() => setIsPlaying(true)).catch(e => console.log('Autoplay prevented:', e));
+    }
+  }, [shouldLoad, autoPlay]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -67,21 +74,27 @@ export default function MP4VideoPlayer({
 
   return (
     <div ref={containerRef} className={`relative overflow-hidden ${className}`}>
-      <video
-        ref={videoRef}
-        src={shouldLoad ? src : undefined}
-        poster={poster}
-        loop={loop}
-        muted={muted}
-        controls={controls}
-        playsInline={playsInline}
-        preload="none"
-        className="w-full h-full object-cover transition-transform duration-300"
-        style={{
-          backfaceVisibility: 'hidden',
-          willChange: isPlaying ? 'transform' : 'auto',
-        }}
-      />
+      {shouldLoad && (
+        <video
+          ref={videoRef}
+          src={src}
+          poster={poster}
+          autoPlay={autoPlay}
+          loop={loop}
+          muted={muted}
+          controls={controls}
+          playsInline={playsInline}
+          preload="none"
+          className="w-full h-full object-cover transition-transform duration-300"
+          style={{
+            backfaceVisibility: 'hidden',
+            willChange: isPlaying ? 'transform' : 'auto',
+          }}
+        />
+      )}
+      {!shouldLoad && poster && (
+        <img src={poster} alt="" className="w-full h-full object-cover" />
+      )}
     </div>
   );
 }
