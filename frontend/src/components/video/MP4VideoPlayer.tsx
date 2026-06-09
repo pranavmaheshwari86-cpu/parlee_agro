@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 interface MP4VideoPlayerProps {
   src: string;
@@ -23,40 +23,63 @@ export default function MP4VideoPlayer({
   controls = false,
   playsInline = true,
 }: MP4VideoPlayerProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          if (autoPlay && videoRef.current) {
+            videoRef.current.play().catch(e => console.log('Autoplay prevented:', e));
+            setIsPlaying(true);
+          }
+        } else {
+          if (videoRef.current && !videoRef.current.paused) {
+            videoRef.current.pause();
+            setIsPlaying(false);
+          }
+        }
+      },
+      { rootMargin: '300px' }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [autoPlay]);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || !autoPlay) return;
+    if (!video) return;
 
-    // Fix React autoplay issue by explicitly setting muted and playsInline on the DOM node
     video.defaultMuted = true;
     video.muted = true;
     if (playsInline) {
       video.playsInline = true;
     }
-
-    // Play the video and catch any autoplay restrictions
-    video.play().catch((e) => console.log('Autoplay prevented:', e));
-  }, [autoPlay, playsInline]);
+  }, [shouldLoad, playsInline]);
 
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div ref={containerRef} className={`relative overflow-hidden ${className}`}>
       <video
         ref={videoRef}
-        src={src}
+        src={shouldLoad ? src : undefined}
         poster={poster}
-        autoPlay={autoPlay}
         loop={loop}
         muted={muted}
         controls={controls}
         playsInline={playsInline}
-        preload="auto"
-        className="w-full h-full object-cover"
-        // Hardware acceleration optimizations and scaling to hide watermarks
+        preload="none"
+        className="w-full h-full object-cover transition-transform duration-300"
         style={{
-          transform: 'scale(1.10) translateZ(0)',
           backfaceVisibility: 'hidden',
+          willChange: isPlaying ? 'transform' : 'auto',
         }}
       />
     </div>

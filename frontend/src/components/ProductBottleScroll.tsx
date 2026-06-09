@@ -35,6 +35,9 @@ export default function ProductBottleScroll({
   const rafRef = useRef<number>(0);
   const [imagesReady, setImagesReady] = useState(false);
   const hasPlayedRef = useRef(false);
+  const hasLoadedRef = useRef(false);
+  const progressAnimRef = useRef<ReturnType<typeof animate> | null>(null);
+  const videoAnimRef = useRef<ReturnType<typeof animate> | null>(null);
 
   const progress = useMotionValue(0);
   const videoProgress = useMotionValue(0);
@@ -67,13 +70,16 @@ export default function ProductBottleScroll({
     [drawFrame]
   );
 
-  // Load images
-  useEffect(() => {
+  // Load images — only called once the container is near the viewport
+  const loadImages = useCallback(() => {
+    if (hasLoadedRef.current) return;
+    hasLoadedRef.current = true;
+
     let cancelled = false;
     setImagesReady(false);
     imagesRef.current = [];
 
-    const loadImages = async () => {
+    const doLoad = async () => {
       const loaded: HTMLImageElement[] = new Array(FRAME_COUNT);
       const promises = Array.from({ length: FRAME_COUNT }, (_, i) => {
         return new Promise<void>((resolve) => {
@@ -96,7 +102,7 @@ export default function ProductBottleScroll({
 
       // Don't await all, just set refs
       imagesRef.current = loaded;
-      
+
       // Let them load in background
       Promise.all(promises).then(() => {
         if (!cancelled) {
@@ -105,13 +111,21 @@ export default function ProductBottleScroll({
       });
     };
 
-    loadImages();
+    doLoad();
 
+    // Return cleanup function
     return () => {
       cancelled = true;
       cancelAnimationFrame(rafRef.current);
     };
   }, [product.folderPath, product.reverseFrames, scheduleDraw]);
+
+  // Reset loading state when product changes
+  useEffect(() => {
+    hasLoadedRef.current = false;
+    setImagesReady(false);
+    imagesRef.current = [];
+  }, [product.folderPath]);
 
   // Update canvas frames as `videoProgress` changes
   useMotionValueEvent(videoProgress, "change", (latestProgress) => {
@@ -127,35 +141,60 @@ export default function ProductBottleScroll({
     }
   });
 
+  const stopAnimations = useCallback(() => {
+    if (progressAnimRef.current) {
+      progressAnimRef.current.stop();
+      progressAnimRef.current = null;
+    }
+    if (videoAnimRef.current) {
+      videoAnimRef.current.stop();
+      videoAnimRef.current = null;
+    }
+  }, []);
+
   const playAnimation = useCallback(() => {
     const container = containerRef.current;
     if (!container) return;
+
+    // Stop any running animations before starting new ones
+    stopAnimations();
 
     // Reset progress to 0 before playing
     progress.set(0);
     
     // Play the animation simply and purely without hijacking the user's scroll!
-    animate(progress, 1, {
+    progressAnimRef.current = animate(progress, 1, {
       duration: product.animationDuration || ANIMATION_DURATION_SECONDS,
       ease: "linear",
     });
 
     videoProgress.set(0);
-    animate(videoProgress, 1, {
+    videoAnimRef.current = animate(videoProgress, 1, {
       duration: product.animationDuration || ANIMATION_DURATION_SECONDS,
       ease: "linear",
-      repeat: Infinity,
-      repeatType: "loop"
     });
-  }, [progress, videoProgress, containerRef, product.animationDuration]);
+  }, [progress, videoProgress, containerRef, product.animationDuration, stopAnimations]);
 
-  // Intersection Observer to trigger animation
+  // Intersection Observer: gate loading (400px margin) + trigger/stop animation
   useEffect(() => {
-
     const container = containerRef.current;
     if (!container) return;
 
-    const observer = new IntersectionObserver(
+    let loadCleanup: (() => void) | undefined;
+
+    // Observer for lazy-loading frames (400px ahead of viewport)
+    const loadObserver = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting && !hasLoadedRef.current) {
+          loadCleanup = loadImages();
+        }
+      },
+      { rootMargin: "400px" }
+    );
+
+    // Observer for play/stop animation (visible in viewport)
+    const animObserver = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
         if (entry.isIntersecting && imagesReady) {
@@ -165,23 +204,34 @@ export default function ProductBottleScroll({
           }
         } else if (!entry.isIntersecting) {
           hasPlayedRef.current = false;
+          stopAnimations();
         }
       },
       { threshold: 0.2 } 
     );
 
-    observer.observe(container);
+    loadObserver.observe(container);
+    animObserver.observe(container);
 
     return () => {
-      observer.disconnect();
+      loadObserver.disconnect();
+      animObserver.disconnect();
+      if (loadCleanup) loadCleanup();
     };
-  }, [containerRef, playAnimation, imagesReady]);
+  }, [containerRef, playAnimation, imagesReady, loadImages, stopAnimations]);
 
   useEffect(() => {
     const onResize = () => scheduleDraw(frameIndexRef.current);
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, [scheduleDraw]);
+
+  // Clean up animations on unmount
+  useEffect(() => {
+    return () => {
+      stopAnimations();
+    };
+  }, [stopAnimations]);
 
   const isDark = product.isDark ?? false;
 
@@ -199,7 +249,7 @@ export default function ProductBottleScroll({
       <div className="absolute inset-0 z-0">
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 h-full w-full object-contain z-0 brightness-110 contrast-[1.05] saturate-110"
+          className="absolute inset-0 h-full w-full object-contain z-0"
           aria-label={`${product.name} bottle animation`}
         />
 

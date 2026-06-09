@@ -30,18 +30,18 @@ export default function ProductFlavorSection({
       {/* Smooth Background specifically for Frio Orange */}
       {product.id === "frio-orange" && (
         <>
-          <div className="pointer-events-none absolute -left-[10%] top-0 h-[1000px] w-[1000px] animate-pulse rounded-full bg-orange-400/20 blur-[150px] mix-blend-overlay duration-1000 transform-gpu will-change-transform" />
-          <div className="pointer-events-none absolute -right-[10%] bottom-0 h-[1000px] w-[1000px] animate-pulse rounded-full bg-orange-600/10 blur-[150px] mix-blend-overlay duration-1000 transform-gpu will-change-transform" />
-          <div className="pointer-events-none absolute left-[30%] top-[40%] h-[800px] w-[800px] rounded-full bg-yellow-400/15 blur-[120px] mix-blend-overlay transform-gpu will-change-transform" />
+          <div className="pointer-events-none absolute -left-[10%] top-0 h-[500px] w-[500px] rounded-full bg-orange-400/20 blur-[80px] mix-blend-overlay duration-1000 transform-gpu" />
+          <div className="pointer-events-none absolute -right-[10%] bottom-0 h-[500px] w-[500px] rounded-full bg-orange-600/10 blur-[80px] mix-blend-overlay duration-1000 transform-gpu" />
+          <div className="pointer-events-none absolute left-[30%] top-[40%] h-[400px] w-[400px] rounded-full bg-yellow-400/15 blur-[80px] mix-blend-overlay transform-gpu" />
         </>
       )}
 
       {/* Smooth Background specifically for Bailley Water */}
       {product.id === "bailley-water" && (
         <>
-          <div className="pointer-events-none absolute -left-[10%] top-0 h-[1000px] w-[1000px] animate-pulse rounded-full bg-blue-400/20 blur-[150px] mix-blend-overlay duration-1000 transform-gpu will-change-transform" />
-          <div className="pointer-events-none absolute -right-[10%] bottom-0 h-[1000px] w-[1000px] animate-pulse rounded-full bg-cyan-500/15 blur-[150px] mix-blend-overlay duration-1000 transform-gpu will-change-transform" />
-          <div className="pointer-events-none absolute left-[30%] top-[40%] h-[800px] w-[800px] rounded-full bg-blue-300/15 blur-[120px] mix-blend-overlay transform-gpu will-change-transform" />
+          <div className="absolute top-1/4 -left-1/4 w-[500px] h-[500px] rounded-full bg-white/20 blur-[80px] mix-blend-overlay transition-transform duration-1000 group-hover:scale-110" />
+          <div className="absolute bottom-1/4 -right-1/4 w-[400px] h-[400px] rounded-full bg-white/10 blur-[80px] mix-blend-overlay transition-transform duration-1000 group-hover:scale-110 delay-100" />
+          <div className="pointer-events-none absolute left-[30%] top-[40%] h-[400px] w-[400px] rounded-full bg-blue-300/15 blur-[80px] mix-blend-overlay transform-gpu" />
         </>
       )}
 

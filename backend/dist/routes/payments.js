@@ -282,4 +282,23 @@ router.get("/:id", async (req, res) => {
         return res.status(500).json({ error: "Internal server error" });
     }
 });
+// Get user payment history
+router.get("/", async (req, res) => {
+    try {
+        const userId = req.header("x-user-id");
+        if (!userId) {
+            return res.status(401).json({ error: "Unauthorized" });
+        }
+        const payments = await prisma_1.prisma.payment.findMany({
+            where: { userId },
+            orderBy: { createdAt: "desc" },
+            include: { order: true },
+        });
+        return res.status(200).json({ success: true, payments });
+    }
+    catch (error) {
+        console.error("Payment history fetch error:", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
 exports.default = router;

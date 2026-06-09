@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import SmoothScrolling from "@/components/SmoothScrolling";
-import CartDrawer from "@/components/CartDrawer";
+import dynamic from "next/dynamic";
+
+const SmoothScrolling = dynamic(() => import("@/components/SmoothScrolling"), { ssr: false });
+const CartDrawer = dynamic(() => import("@/components/CartDrawer"), { ssr: false });
 
 const inter = Inter({
   subsets: ["latin"],

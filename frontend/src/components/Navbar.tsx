@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { products } from "@/data/products";
 import { useCartStore } from "@/store/useCartStore";
@@ -90,6 +90,7 @@ function NavLink({ href, label, scrolled }: { href: string, label: string, scrol
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const scrolledRef = useRef(false);
   const [isMounted, setIsMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
@@ -104,7 +105,11 @@ export default function Navbar() {
   }, []);
 
   useLenis(({ scroll }) => {
-    setScrolled(scroll > 24);
+    const isScrolled = scroll > 24;
+    if (isScrolled !== scrolledRef.current) {
+      scrolledRef.current = isScrolled;
+      setScrolled(isScrolled);
+    }
   });
 
   const scrollToFirstBuy = () => {
