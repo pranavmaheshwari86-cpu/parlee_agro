@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import type { Product } from "@/data/products";
 import { useCartStore } from "@/store/useCartStore";
 
@@ -10,8 +11,10 @@ interface BuyNowProps {
 }
 
 export default function BuyNow({ product }: BuyNowProps) {
+  const router = useRouter();
   const [quantity, setQuantity] = useState(1);
   const [selectedPackageIndex, setSelectedPackageIndex] = useState(0);
+  const [isAdded, setIsAdded] = useState(false);
   const addToCart = useCartStore((state) => state.addToCart);
   const isDark = product.isDark ?? false;
   const { buyNowSection: buy } = product;
@@ -27,7 +30,7 @@ export default function BuyNow({ product }: BuyNowProps) {
     : "bg-white border border-black/5 shadow-2xl";
 
   return (
-    <section id={`buy-${product.id}`} className="px-6 py-12 pb-24 md:px-12">
+    <section id={`buy-${product.id}`} className="px-4 sm:px-6 py-8 sm:py-12 pb-24 md:px-12">
       <motion.div
         initial={{ opacity: 0, y: 48 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -36,7 +39,7 @@ export default function BuyNow({ product }: BuyNowProps) {
         className={`mx-auto max-w-5xl overflow-hidden rounded-[2.5rem] ${cardBg}`}
       >
         <div className="grid md:grid-cols-5">
-          <div className="p-8 md:col-span-3 md:p-14">
+          <div className="p-5 sm:p-8 md:col-span-3 md:p-14">
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-pink-500 drop-shadow-sm">
               Checkout
             </p>
@@ -77,7 +80,7 @@ export default function BuyNow({ product }: BuyNowProps) {
               <span className={`text-lg font-bold ${textMuted}`}>{displayUnit}</span>
             </div>
 
-            <div className="mt-10 flex items-center gap-6">
+            <div className="mt-10 flex flex-wrap items-center gap-4 sm:gap-6">
               <span className={`text-sm font-bold uppercase tracking-wider ${textMuted}`}>Quantity</span>
               <div className={`flex items-center overflow-hidden rounded-full border ${isDark ? 'border-white/10 bg-[#222]' : 'border-gray-200 bg-gray-50'}`}>
                 <button
@@ -117,19 +120,23 @@ export default function BuyNow({ product }: BuyNowProps) {
                   themeColor: product.themeColor,
                   image: product.detailImage || `${product.folderPath}/120.webp`,
                 });
+                setIsAdded(true);
+                setTimeout(() => setIsAdded(false), 2000);
               }}
               className="group relative mt-12 w-full overflow-hidden rounded-full py-5 text-xl font-bold text-white shadow-xl transition-all hover:shadow-2xl hover:-translate-y-0.5"
               style={{
-                backgroundColor: product.themeColor,
+                backgroundColor: isAdded ? '#10b981' : product.themeColor, // Tailwind green-500
               }}
               whileTap={{ scale: 0.98 }}
             >
-              <span className="relative z-10 drop-shadow-sm">Add to Cart — {displayPrice}</span>
+              <span className="relative z-10 drop-shadow-sm">
+                {isAdded ? "Added to Cart! ✓" : `Add to Cart — ${displayPrice}`}
+              </span>
               <div className="absolute inset-0 -translate-x-full bg-white/20 transition-transform duration-700 ease-in-out group-hover:translate-x-full" />
             </motion.button>
           </div>
 
-          <div className={`p-8 md:col-span-2 md:p-14 ${isDark ? "bg-[#222]" : "bg-gray-50"} border-l ${isDark ? "border-white/5" : "border-black/5"}`}>
+          <div className={`p-5 sm:p-8 md:col-span-2 md:p-14 ${isDark ? "bg-[#222]" : "bg-gray-50"} border-l ${isDark ? "border-white/5" : "border-black/5"}`}>
             <h3 className={`text-xl font-black font-serif ${textPrimary}`}>What you get</h3>
             <ul className="mt-8 space-y-5">
               {buy.processingParams.map((param, index) => (

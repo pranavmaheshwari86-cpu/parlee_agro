@@ -11,11 +11,13 @@ const ANIMATION_DURATION_SECONDS = 4;
 interface ProductVideoScrollProps {
   product: Product;
   containerRef: RefObject<HTMLDivElement | null>;
+  index: number;
 }
 
 export default function ProductVideoScroll({
   product,
   containerRef,
+  index,
 }: ProductVideoScrollProps) {
   const progress = useMotionValue(0);
   const hasPlayedRef = useRef(false);
@@ -73,7 +75,7 @@ export default function ProductVideoScroll({
     >
       <div className="absolute inset-0 z-0 bg-black">
         <div className="absolute inset-0 h-full w-full z-0 origin-center">
-          <MP4VideoPlayer src={product.videoSrc || ""} className="w-full h-full object-cover" autoPlay={true} />
+          <MP4VideoPlayer src={product.videoSrc || ""} className="w-full h-full object-cover" autoPlay={true} index={index} />
         </div>
         
         {/* Static dark overlay for text readability */}

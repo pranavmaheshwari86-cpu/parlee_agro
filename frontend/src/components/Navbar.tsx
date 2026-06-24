@@ -1,39 +1,40 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { products } from "@/data/products";
 import { useCartStore } from "@/store/useCartStore";
 import { useLenis } from "lenis/react";
 const SMOODH_ITEMS = [
-  { href: "#lassi", label: "Lassi" },
-  { href: "#chocolate", label: "Chocolate" },
-  { href: "#chocolate-hazelnut", label: "Hazelnut" },
-  { href: "#coffee-frappe", label: "Coffee Frappe" },
-  { href: "#kesar-badam", label: "Kesar Badam" },
-  { href: "#toffee-caramel", label: "Toffee Caramel" },
+  { href: "/#lassi", label: "Lassi" },
+  { href: "/#chocolate", label: "Chocolate" },
+  { href: "/#chocolate-hazelnut", label: "Hazelnut" },
+  { href: "/#coffee-frappe", label: "Coffee Frappe" },
+  { href: "/#kesar-badam", label: "Kesar Badam" },
+  { href: "/#toffee-caramel", label: "Toffee Caramel" },
 ];
 
 const FIZZ_ITEMS = [
-  { href: "#appy-fizz", label: "Appy Fizz" },
-  { href: "#b-fizz", label: "B Fizz" },
+  { href: "/#appy-fizz", label: "Appy Fizz" },
+  { href: "/#b-fizz", label: "B Fizz" },
 ];
 
 const FRIO_ITEMS = [
-  { href: "#frio-cola", label: "Frio Cola" },
-  { href: "#frio-lime", label: "Frio Lime" },
-  { href: "#frio-orange", label: "Frio Orange" },
+  { href: "/#frio-cola", label: "Frio Cola" },
+  { href: "/#frio-lime", label: "Frio Lime" },
+  { href: "/#frio-orange", label: "Frio Orange" },
 ];
 
 const BOMBAY99_ITEMS = [
-  { href: "#bombay99-club-soda", label: "Club Soda" },
-  { href: "#bombay99-ginger-ale", label: "Ginger Ale" },
-  { href: "#bombay99-tonic-water", label: "Tonic Water" },
+  { href: "/#bombay99-club-soda", label: "Club Soda" },
+  { href: "/#bombay99-ginger-ale", label: "Ginger Ale" },
+  { href: "/#bombay99-tonic-water", label: "Tonic Water" },
 ];
 
 const BAILLEY_ITEMS = [
-  { href: "#bailley-soda", label: "Soda Water" },
-  { href: "#bailley-water", label: "Water" },
+  { href: "/#bailley-soda", label: "Soda Water" },
+  { href: "/#bailley-water", label: "Water" },
 ];
 
 function NavDropdown({ label, items, scrolled }: { label: string, items: {label: string, href: string}[], scrolled: boolean }) {
@@ -45,12 +46,16 @@ function NavDropdown({ label, items, scrolled }: { label: string, items: {label:
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <button
+      <Link
+        href={items.length > 0 ? items[0].href : "#"}
         className="flex items-center gap-1 rounded-full min-h-[44px] px-3 text-xl font-medium text-gray-100 hover:bg-white/10 hover:text-white transition-colors"
       >
         {label}
         <svg className="w-3.5 h-3.5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-      </button>
+      </Link>
+
+      {/* Invisible bridge to prevent hover loss during gap */}
+      {isOpen && <div className="absolute top-full left-0 right-0 h-6 bg-transparent z-10" />}
 
       <AnimatePresence>
         {isOpen && items.length > 0 && (
@@ -59,16 +64,16 @@ function NavDropdown({ label, items, scrolled }: { label: string, items: {label:
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 5, scale: 0.95 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute left-0 mt-1 w-48 rounded-2xl bg-white/90 backdrop-blur-xl shadow-xl ring-1 ring-black/5 overflow-hidden py-2"
+            className="absolute left-0 mt-2 w-48 rounded-2xl bg-white/90 backdrop-blur-xl shadow-xl ring-1 ring-black/5 overflow-hidden py-2 z-20"
           >
             {items.map(item => (
-              <a
+              <Link
                 key={item.href}
                 href={item.href}
                 className="block px-4 py-2 text-xl text-gray-700 transition-colors hover:bg-pink-50 hover:text-pink-600"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </motion.div>
         )}
@@ -79,12 +84,12 @@ function NavDropdown({ label, items, scrolled }: { label: string, items: {label:
 
 function NavLink({ href, label, scrolled }: { href: string, label: string, scrolled: boolean }) {
   return (
-    <a
+    <Link
       href={href}
       className="flex items-center rounded-full min-h-[44px] px-3 text-xl font-medium text-gray-100 hover:bg-white/10 hover:text-white transition-colors"
     >
       {label}
-    </a>
+    </Link>
   );
 }
 
@@ -122,13 +127,13 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "border-b border-white/10 bg-black/20 backdrop-blur-xl shadow-sm"
+          ? "bg-gradient-to-br from-black/20 to-black/5 backdrop-blur-2xl border-b border-l border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
           : "border-b border-transparent bg-transparent"
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 md:px-6">
-        <a href="#home" className="flex shrink-0 flex-col items-center group">
-          <div className="flex items-baseline gap-1.5 text-2xl md:text-3xl font-black italic tracking-tight transition-transform group-hover:scale-105">
+        <Link href="/#home" className="flex shrink-0 flex-col items-center group">
+          <div className="flex items-baseline gap-1.5 text-xl sm:text-2xl md:text-3xl font-black italic tracking-tight transition-transform group-hover:scale-105">
             <span className="text-[#e21b22]">Parlee</span>
             <span className="text-[#39b54a] flex items-center">
               A
@@ -141,10 +146,10 @@ export default function Navbar() {
           <svg className="w-full h-2.5 md:h-3 text-[#39b54a] mt-0.5 fill-current" viewBox="0 0 120 12" preserveAspectRatio="none">
             <path d="M0,10 C30,-2 80,-2 120,4 C80,14 30,14 0,10 Z" />
           </svg>
-          <div className="text-[#39b54a] text-[8px] md:text-[10px] font-semibold tracking-[0.3em] uppercase mt-1 ml-1 opacity-90">
+          <div className="text-[#39b54a] text-[7px] sm:text-[8px] md:text-[10px] font-semibold tracking-[0.3em] uppercase mt-1 ml-1 opacity-90">
             refreshing india
           </div>
-        </a>
+        </Link>
 
         <div className="hidden items-center gap-1 md:flex">
           <NavDropdown label="Smoodh" items={SMOODH_ITEMS} scrolled={scrolled} />
@@ -155,8 +160,8 @@ export default function Navbar() {
           
           <div className="mx-2 h-5 w-px bg-gray-400/30" />
 
-          <NavLink href="#frooti" label="Frooti" scrolled={scrolled} />
-          <NavLink href="#dhishoom" label="Dhishoom" scrolled={scrolled} />
+          <NavLink href="/#frooti" label="Frooti" scrolled={scrolled} />
+          <NavLink href="/#dhishoom" label="Dhishoom" scrolled={scrolled} />
         </div>
 
         <div className="flex items-center gap-3">
@@ -176,8 +181,8 @@ export default function Navbar() {
 
 
         
-        <button
-          onClick={openCart}
+        <Link
+          href="/cart"
           className="relative flex items-center justify-center p-2.5 rounded-full text-white hover:bg-white/10 transition-colors"
           aria-label="Open Cart"
         >
@@ -189,7 +194,7 @@ export default function Navbar() {
               {cartItemCount}
             </span>
           )}
-        </button>
+        </Link>
       </div>
       </nav>
 
@@ -205,21 +210,21 @@ export default function Navbar() {
             <div className="flex flex-col p-4 gap-2">
               <div className="font-semibold text-gray-900 text-sm uppercase tracking-wider mb-2">Smoodh</div>
               {SMOODH_ITEMS.map((item) => (
-                <a key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)} className="py-2.5 px-4 rounded-xl text-gray-700 hover:bg-pink-50 hover:text-pink-600 transition-colors">
+                <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)} className="py-2.5 px-4 rounded-xl text-gray-700 hover:bg-pink-50 hover:text-pink-600 transition-colors">
                   {item.label}
-                </a>
+                </Link>
               ))}
               
               <div className="font-semibold text-gray-900 text-sm uppercase tracking-wider mt-4 mb-2">Fizz</div>
               {FIZZ_ITEMS.map((item) => (
-                <a key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)} className="py-2.5 px-4 rounded-xl text-gray-700 hover:bg-pink-50 hover:text-pink-600 transition-colors">
+                <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)} className="py-2.5 px-4 rounded-xl text-gray-700 hover:bg-pink-50 hover:text-pink-600 transition-colors">
                   {item.label}
-                </a>
+                </Link>
               ))}
 
               <div className="h-px w-full bg-gray-200 my-2" />
-              <a href="#frooti" onClick={() => setMobileMenuOpen(false)} className="py-2.5 px-4 rounded-xl font-medium text-gray-900 hover:bg-pink-50 transition-colors">Frooti</a>
-              <a href="#dhishoom" onClick={() => setMobileMenuOpen(false)} className="py-2.5 px-4 rounded-xl font-medium text-gray-900 hover:bg-pink-50 transition-colors">Dhishoom</a>
+              <Link href="/#frooti" onClick={() => setMobileMenuOpen(false)} className="py-2.5 px-4 rounded-xl font-medium text-gray-900 hover:bg-pink-50 transition-colors">Frooti</Link>
+              <Link href="/#dhishoom" onClick={() => setMobileMenuOpen(false)} className="py-2.5 px-4 rounded-xl font-medium text-gray-900 hover:bg-pink-50 transition-colors">Dhishoom</Link>
             </div>
           </motion.div>
         )}

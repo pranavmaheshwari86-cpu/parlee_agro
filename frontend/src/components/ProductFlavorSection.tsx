@@ -12,12 +12,14 @@ interface ProductFlavorSectionProps {
   product: Product;
   nextProduct?: Product;
   isLast?: boolean;
+  index: number;
 }
 
 export default function ProductFlavorSection({
   product,
   nextProduct,
   isLast = false,
+  index,
 }: ProductFlavorSectionProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -49,6 +51,7 @@ export default function ProductFlavorSection({
         <ProductVideoScroll
           product={product}
           containerRef={scrollContainerRef}
+          index={index}
         />
       ) : (
         <ProductBottleScroll

@@ -11,6 +11,7 @@ export interface PaymentProviderProps {
   orderId: string;
   onSuccess: (paymentId: string) => void;
   onError: (error: string) => void;
+  autoStart?: boolean;
 }
 
 export default function PaymentProvider({
@@ -19,6 +20,7 @@ export default function PaymentProvider({
   orderId,
   onSuccess,
   onError,
+  autoStart = false,
 }: PaymentProviderProps) {
   // We can easily swap out payment providers here in the future
   switch (method) {
@@ -29,6 +31,7 @@ export default function PaymentProvider({
           orderId={orderId}
           onSuccess={onSuccess}
           onError={onError}
+          autoStart={autoStart}
         />
       );
     case "STRIPE":

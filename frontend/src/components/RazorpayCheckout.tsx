@@ -1,24 +1,36 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Script from "next/script";
 
 interface RazorpayCheckoutProps {
   amount: number;
-  orderId: string; // The internal DB order ID
+  orderId?: string; // Make optional
+  onCreateOrder?: () => Promise<string>; // Add onCreateOrder prop
   onSuccess: (paymentId: string) => void;
   onError: (error: string) => void;
+  autoStart?: boolean;
+  className?: string;
+  children?: React.ReactNode;
 }
 
-export default function RazorpayCheckout({ amount, orderId, onSuccess, onError }: RazorpayCheckoutProps) {
-  const [loading, setLoading] = useState(false);
+export default function RazorpayCheckout({ amount, orderId, onCreateOrder, onSuccess, onError, autoStart = false, className, children }: RazorpayCheckoutProps) {
+  const [loading, setLoading] = useState(autoStart || false);
   const [scriptLoaded, setScriptLoaded] = useState(false);
+  const autoStartAttempted = useRef(false);
 
   useEffect(() => {
     if (typeof window !== "undefined" && (window as any).Razorpay) {
       setScriptLoaded(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (autoStart && scriptLoaded && !autoStartAttempted.current) {
+      autoStartAttempted.current = true;
+      handlePayment();
+    }
+  }, [autoStart, scriptLoaded]);
 
   const handlePayment = async () => {
     if (!scriptLoaded) {
@@ -29,11 +41,20 @@ export default function RazorpayCheckout({ amount, orderId, onSuccess, onError }
     setLoading(true);
 
     try {
-      // 1. Create Order on Backend
+      let finalOrderId = orderId;
+      if (onCreateOrder) {
+        finalOrderId = await onCreateOrder();
+      }
+      
+      if (!finalOrderId) {
+        throw new Error("Missing order ID");
+      }
+
+      // 1. Create Razorpay Order on Backend
       const res = await fetch("/api/payments/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount, orderId, currency: "INR" }),
+        body: JSON.stringify({ amount, orderId: finalOrderId, currency: "INR" }),
       });
 
       const data = await res.json();
@@ -111,12 +132,12 @@ export default function RazorpayCheckout({ amount, orderId, onSuccess, onError }
       <button
         onClick={handlePayment}
         disabled={loading}
-        className="w-full bg-black text-white font-semibold py-4 rounded-xl shadow-lg hover:bg-gray-800 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+        className={className || "w-full bg-black text-white font-semibold py-4 rounded-xl shadow-lg hover:bg-gray-800 transition-all disabled:opacity-50 flex items-center justify-center gap-2"}
       >
-        {loading ? (
-          <span className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full" />
-        ) : null}
-        {loading ? "Processing..." : `Pay ₹${amount.toFixed(2)}`}
+        {loading && (
+          <span className="animate-spin h-5 w-5 border-2 border-current border-t-transparent rounded-full flex-shrink-0" />
+        )}
+        {children ? children : (loading ? "Opening Payment Gateway..." : `Pay ₹${amount.toFixed(2)}`)}
       </button>
     </>
   );

@@ -11,7 +11,7 @@ export default function HeroIntro() {
     <div ref={heroRef} className="relative w-screen bg-black">
       <section
         id="hero-frame"
-        className="relative z-10 flex min-h-screen scroll-mt-20 flex-col items-center justify-center overflow-hidden px-6 pt-20 pb-12 text-center"
+        className="relative z-10 flex min-h-screen scroll-mt-20 flex-col items-center justify-center overflow-hidden px-4 sm:px-6 pt-20 pb-12 text-center"
       >
 
       {/* Abstract background elements for extra glassmorphic depth */}
@@ -22,8 +22,9 @@ export default function HeroIntro() {
 
 
         <AnimatedTitle 
-          title="Parlé Agro"
+          title="Parlee Agro"
           containerClass="mt-6"
+          gapClass="gap-6 md:gap-12 lg:gap-16"
           textClass="bg-gradient-to-br from-pink-600 via-rose-500 to-fuchsia-700 bg-clip-text text-transparent font-serif"
         />
 
@@ -34,7 +35,7 @@ export default function HeroIntro() {
             visible: { transition: { staggerChildren: 0.12, delayChildren: 0.3 } },
           }}
         >
-          {"Smooth sips. Bold flavors. Premium lassi, flavoured milk, refreshing juices, and sparkling beverages from the house of Parlé Agro.".split(" ").map((word, i) => (
+          {"Smooth sips. Bold flavors. Premium lassi, flavoured milk, refreshing juices, and sparkling beverages from the house of Parlee Agro.".split(" ").map((word, i) => (
             <motion.span
               key={i}
               variants={{

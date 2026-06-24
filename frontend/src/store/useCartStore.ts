@@ -14,7 +14,8 @@ interface CartItem {
 interface CartStore {
   items: CartItem[];
   isCartOpen: boolean;
-  openCart: () => void;
+  checkoutStep: "cart" | "address" | "payment";
+  openCart: (step?: "cart" | "address" | "payment") => void;
   closeCart: () => void;
   addToCart: (item: Omit<CartItem, 'quantity'> & { quantity?: number }) => void;
   removeFromCart: (productId: string) => void;
@@ -28,7 +29,8 @@ export const useCartStore = create<CartStore>()(
     (set, get) => ({
       items: [],
       isCartOpen: false,
-      openCart: () => set({ isCartOpen: true }),
+      checkoutStep: "cart",
+      openCart: (step = "cart") => set({ isCartOpen: true, checkoutStep: step }),
       closeCart: () => set({ isCartOpen: false }),
       addToCart: (item) => {
         set((state) => {
@@ -42,12 +44,10 @@ export const useCartStore = create<CartStore>()(
                   ? { ...i, quantity: i.quantity + quantityToAdd, image: item.image || i.image, themeColor: item.themeColor }
                   : i
               ),
-              isCartOpen: true,
             };
           }
           return {
             items: [...state.items, { ...item, quantity: quantityToAdd }],
-            isCartOpen: true,
           };
         });
       },

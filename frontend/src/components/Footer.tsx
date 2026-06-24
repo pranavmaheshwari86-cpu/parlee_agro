@@ -5,12 +5,12 @@ import { products } from "@/data/products";
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300">
-      <div className="mx-auto grid max-w-[1920px] w-full gap-8 px-6 py-12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-[1920px] w-full gap-8 px-4 sm:px-6 py-12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <p className="bg-gradient-to-r from-pink-400 to-fuchsia-500 bg-clip-text text-lg font-bold text-transparent">
             Smoodh
           </p>
-          <p className="mt-2 text-sm text-gray-400">by Parlé Agro</p>
+          <p className="mt-2 text-sm text-gray-400">by Parlee Agro</p>
           <p className="mt-4 text-sm leading-relaxed text-gray-400">
             Premium flavoured milk & lassi. Smooth sips, bold flavors — crafted
             for every moment.
@@ -95,7 +95,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-gray-800 px-6 py-6 text-center text-xs text-gray-400">
-        © {new Date().getFullYear()} Parlé Agro. Smoodh is a registered brand.
+        © {new Date().getFullYear()} Parlee Agro. Smoodh is a registered brand.
         All rights reserved.
       </div>
     </footer>

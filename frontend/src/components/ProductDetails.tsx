@@ -29,7 +29,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section id={`${product.id}-details`} ref={containerRef} className="relative px-6 py-12 md:px-12 md:py-24">
+    <section id={`${product.id}-details`} ref={containerRef} className="relative px-4 sm:px-6 py-8 sm:py-12 md:px-12 md:py-24">
       <div className="mx-auto max-w-[1920px] w-full 2xl:px-24">
         <motion.div
           initial={{ opacity: 0, y: 48 }}
@@ -47,6 +47,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               fill
               className="object-cover opacity-95 transition-opacity hover:opacity-100"
               sizes="(max-width: 1024px) 100vw, 50vw"
+              unoptimized={true}
             />
           </div>
 
@@ -69,7 +70,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                   }`}
                 >
                   <p
-                    className="text-2xl sm:text-3xl font-black md:text-4xl whitespace-normal break-words leading-tight tracking-tight"
+                    className="text-xl sm:text-3xl font-black md:text-4xl whitespace-normal break-words leading-tight tracking-tight"
                     style={{ color: product.themeColor }}
                   >
                     {stat.val}
@@ -99,7 +100,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className={`mt-16 md:mt-24 rounded-[2.5rem] p-10 md:p-16 ${cardBg}`}
+          className={`mt-16 md:mt-24 rounded-[2.5rem] p-6 sm:p-10 md:p-16 ${cardBg}`}
         >
           <AnimatedTitle
             title={product.freshnessSection.title}

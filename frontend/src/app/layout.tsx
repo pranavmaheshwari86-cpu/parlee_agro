@@ -21,12 +21,12 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   metadataBase: new URL("https://smoodh.parleagro.com"),
   title: {
-    default: "Smoodh by Parlé Agro | Smooth Sips, Bold Flavors",
-    template: "%s | Smoodh by Parlé Agro",
+    default: "Smoodh by Parlee Agro | Smooth Sips, Bold Flavors",
+    template: "%s | Smoodh by Parlee Agro",
   },
-  description: "Premium flavoured milk and lassi by Parlé Agro. Smooth sips, bold flavors.",
+  description: "Premium flavoured milk and lassi by Parlee Agro. Smooth sips, bold flavors.",
   openGraph: {
-    title: "Smoodh by Parlé Agro",
+    title: "Smoodh by Parlee Agro",
     description: "Premium flavoured milk and lassi. Smooth sips, bold flavors.",
     url: "https://smoodh.parleagro.com",
     siteName: "Smoodh",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Smoodh by Parlé Agro",
+        alt: "Smoodh by Parlee Agro",
       },
     ],
     locale: "en_IN",
@@ -43,9 +43,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Smoodh by Parlé Agro",
+    title: "Smoodh by Parlee Agro",
     description: "Premium flavoured milk and lassi. Smooth sips, bold flavors.",
     images: ["/og-image.jpg"],
+  },
+  icons: {
+    icon: "/logo.png",
   },
 };
 

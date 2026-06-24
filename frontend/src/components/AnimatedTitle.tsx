@@ -10,9 +10,10 @@ interface AnimatedTitleProps {
   title: string;
   containerClass?: string;
   textClass?: string;
+  gapClass?: string;
 }
 
-const AnimatedTitle = ({ title, containerClass = "", textClass = "" }: AnimatedTitleProps) => {
+const AnimatedTitle = ({ title, containerClass = "", textClass = "", gapClass = "gap-2 md:gap-3" }: AnimatedTitleProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -46,7 +47,7 @@ const AnimatedTitle = ({ title, containerClass = "", textClass = "" }: AnimatedT
       {title.split("<br />").map((line, index) => (
         <div
           key={index}
-          className="flex max-w-full flex-wrap gap-2 px-4 md:px-10 md:gap-3"
+          className={`flex max-w-full flex-wrap justify-center px-4 md:px-10 ${gapClass}`}
         >
           {line.split(" ").map((word, idx) => (
             <span

@@ -43,7 +43,7 @@ router.post("/create-order", async (req: Request, res: Response) => {
       return res.status(400).json({ error: "Order is already paid" });
     }
 
-    const actualAmount = order.subtotal;
+    const actualAmount = order.grandTotal;
 
     const options = {
       amount: Math.round(actualAmount * 100),
@@ -214,19 +214,17 @@ router.post("/webhook", async (req: Request, res: Response) => {
     try {
       if (eventType === "payment.captured" || eventType === "payment.authorized") {
         if (payment.status !== "PAID") {
-          await prisma.$transaction([
-            prisma.payment.update({
-              where: { id: payment.id },
-              data: {
-                status: "PAID",
-                paymentId: razorpayPaymentId,
-              },
-            }),
-            prisma.order.update({
-              where: { id: payment.orderId },
-              data: { status: "PAID" },
-            })
-          ]);
+          await prisma.payment.update({
+            where: { id: payment.id },
+            data: {
+              status: "PAID",
+              paymentId: razorpayPaymentId,
+            },
+          });
+          await prisma.order.update({
+            where: { id: payment.orderId },
+            data: { status: "PAID" },
+          });
         }
       } else if (eventType === "payment.failed") {
         if (payment.status !== "FAILED") {
@@ -236,26 +234,24 @@ router.post("/webhook", async (req: Request, res: Response) => {
           });
 
           if (order && order.status !== "FAILED") {
-            await prisma.$transaction(async (tx) => {
-              await tx.payment.update({
+              await prisma.payment.update({
                 where: { id: payment.id },
                 data: { status: "FAILED" },
               });
 
-              await tx.order.update({
+              await prisma.order.update({
                 where: { id: payment.orderId },
                 data: { status: "FAILED" },
               });
 
               for (const item of order.items) {
-                await tx.inventory.update({
+                await prisma.inventory.update({
                   where: { productId: item.productId },
                   data: {
                     reserved: { decrement: item.quantity }
                   }
                 });
               }
-            });
           }
         }
       } else if (eventType === "refund.processed") {
@@ -263,18 +259,16 @@ router.post("/webhook", async (req: Request, res: Response) => {
           const refundAmount = event.payload.refund.entity.amount / 100;
           const newRefundStatus = refundAmount >= payment.amount ? "FULL" : "PARTIAL";
 
-          await prisma.$transaction([
-            prisma.payment.update({
-              where: { id: payment.id },
-              data: { refundStatus: newRefundStatus, status: newRefundStatus === "FULL" ? "REFUNDED" : payment.status },
-            }),
-            ...(newRefundStatus === "FULL" ? [
-              prisma.order.update({
-                where: { id: payment.orderId },
-                data: { status: "REFUNDED" }
-              })
-            ] : [])
-          ]);
+          await prisma.payment.update({
+            where: { id: payment.id },
+            data: { refundStatus: newRefundStatus, status: newRefundStatus === "FULL" ? "REFUNDED" : payment.status },
+          });
+          if (newRefundStatus === "FULL") {
+            await prisma.order.update({
+              where: { id: payment.orderId },
+              data: { status: "REFUNDED" }
+            });
+          }
         }
       }
 

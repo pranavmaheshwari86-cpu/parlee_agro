@@ -10,8 +10,14 @@ const orderItemSchema = zod_1.z.object({
 });
 exports.createOrderSchema = zod_1.z.object({
     name: zod_1.z.string().min(2, "Name must be at least 2 characters"),
+    mobileNumber: zod_1.z.string().min(10, "Invalid mobile number").regex(/^[0-9+\s-]+$/, "Invalid mobile number format"),
+    alternateMobile: zod_1.z.string().optional(),
     email: zod_1.z.string().email("Invalid email address"),
+    country: zod_1.z.string().min(2, "Country is required"),
+    state: zod_1.z.string().min(2, "State is required"),
+    city: zod_1.z.string().min(2, "City is required"),
     address: zod_1.z.string().min(5, "Address must be at least 5 characters"),
+    landmark: zod_1.z.string().optional(),
     zipCode: zod_1.z.string().min(4, "Invalid ZIP code"),
     items: zod_1.z.array(orderItemSchema).min(1, "Order must contain at least one item"),
     idempotencyKey: zod_1.z.string().optional(),

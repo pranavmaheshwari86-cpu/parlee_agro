@@ -6,6 +6,7 @@ const order_1 = require("../lib/validations/order");
 const zod_1 = require("zod");
 const ratelimit_1 = require("../lib/ratelimit");
 const router = (0, express_1.Router)();
+// Create new order
 router.post("/", async (req, res) => {
     try {
         const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || "127.0.0.1";
@@ -14,7 +15,7 @@ router.post("/", async (req, res) => {
             return res.status(429).json({ error: "Too many requests" });
         }
         const parsedData = order_1.createOrderSchema.parse(req.body);
-        const { name, email, address, zipCode, items, idempotencyKey, paymentMethod } = parsedData;
+        const { name, mobileNumber, alternateMobile, email, country, state, city, address, landmark, zipCode, items, idempotencyKey, paymentMethod } = parsedData;
         // Get userId from secure header passed by Next.js frontend proxy
         const userId = req.header("x-user-id");
         if (idempotencyKey) {
@@ -64,16 +65,30 @@ router.post("/", async (req, res) => {
                     price: product.price,
                 });
             }
+            const shippingCharges = calculatedSubtotal > 500 ? 0 : 50; // Example shipping logic
+            const tax = calculatedSubtotal * 0.18; // Example 18% tax
+            const discount = 0; // Handle coupons if implemented
+            const grandTotal = calculatedSubtotal + shippingCharges + tax - discount;
             return await tx.order.create({
                 data: {
                     idempotencyKey: idempotencyKey || null,
                     userId: userId || null,
                     name,
+                    mobileNumber,
+                    alternateMobile,
                     email,
+                    country,
+                    state,
+                    city,
                     address,
+                    landmark,
                     zipCode,
                     subtotal: calculatedSubtotal,
-                    status: paymentMethod === "COD" ? "COD_CONFIRMED" : "PENDING",
+                    shippingCharges,
+                    tax,
+                    discount,
+                    grandTotal,
+                    status: paymentMethod === "COD" ? "CONFIRMED" : "PENDING",
                     items: {
                         create: orderItemsToCreate,
                     },
@@ -100,6 +115,79 @@ router.post("/", async (req, res) => {
             return res.status(400).json({ error: "One or more items are unavailable" });
         }
         return res.status(500).json({ error: "Failed to process checkout" });
+    }
+});
+// Admin: View all orders
+router.get("/", async (req, res) => {
+    try {
+        const { status, search } = req.query;
+        const whereClause = {};
+        if (status) {
+            whereClause.status = String(status);
+        }
+        if (search) {
+            whereClause.OR = [
+                { name: { contains: String(search), mode: "insensitive" } },
+                { email: { contains: String(search), mode: "insensitive" } },
+                { id: { contains: String(search), mode: "insensitive" } }
+            ];
+        }
+        const orders = await prisma_1.prisma.order.findMany({
+            where: whereClause,
+            orderBy: { createdAt: "desc" },
+            include: {
+                items: true,
+                payments: true
+            }
+        });
+        return res.status(200).json({ success: true, orders });
+    }
+    catch (error) {
+        console.error("Fetch orders error:", error);
+        return res.status(500).json({ error: "Failed to fetch orders" });
+    }
+});
+// Admin: View specific order
+router.get("/:id", async (req, res) => {
+    try {
+        const id = String(req.params.id);
+        const order = await prisma_1.prisma.order.findUnique({
+            where: { id },
+            include: {
+                items: true,
+                payments: true,
+                user: { select: { id: true, name: true, email: true } }
+            }
+        });
+        if (!order) {
+            return res.status(404).json({ error: "Order not found" });
+        }
+        return res.status(200).json({ success: true, order });
+    }
+    catch (error) {
+        console.error("Fetch order error:", error);
+        return res.status(500).json({ error: "Failed to fetch order" });
+    }
+});
+// Admin: Update order status
+router.put("/:id/status", async (req, res) => {
+    try {
+        const id = String(req.params.id);
+        const { status } = req.body;
+        const validStatuses = ["PENDING", "CONFIRMED", "PROCESSING", "SHIPPED", "OUT_FOR_DELIVERY", "DELIVERED", "CANCELLED", "REFUNDED"];
+        if (!validStatuses.includes(status)) {
+            return res.status(400).json({ error: "Invalid status" });
+        }
+        const order = await prisma_1.prisma.order.update({
+            where: { id },
+            data: { status },
+            include: { items: true }
+        });
+        return res.status(200).json({ success: true, order });
+    }
+    catch (error) {
+        console.error("Update order error:", error);
+        return res.status(500).json({ error: "Failed to update order status" });
     }
 });
 exports.default = router;

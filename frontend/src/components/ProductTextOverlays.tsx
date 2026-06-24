@@ -21,11 +21,11 @@ function TextSection({ title, subtitle, opacity, y, isDark }: TextSectionProps) 
   return (
     <motion.div
       style={{ opacity, y }}
-      className="pointer-events-none col-start-1 row-start-1 w-full px-4 md:px-8"
+      className="pointer-events-none col-start-1 row-start-1 w-full px-3 sm:px-8"
     >
       <div className="mx-auto max-w-4xl text-center">
         <h2
-          className={`text-4xl font-bold leading-tight tracking-tight md:text-6xl lg:text-7xl font-serif ${
+          className={`text-3xl sm:text-4xl font-bold leading-tight tracking-tight md:text-6xl lg:text-7xl font-serif ${
             isDark ? "text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]" : "text-gray-900 drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)]"
           }`}
         >

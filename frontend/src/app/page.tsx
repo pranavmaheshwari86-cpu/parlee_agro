@@ -3,21 +3,25 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroIntro from "@/components/HeroIntro";
-import ProductFlavorSection from "@/components/ProductFlavorSection";
 import ProductSkeleton from "@/components/ProductSkeleton";
 import { products } from "@/data/products";
 import dynamic from "next/dynamic";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import VideoPreloaderManager from "@/components/video/VideoPreloaderManager";
 
-const LazyProductSection = dynamic(() => import('@/components/ProductFlavorSection'), {
+const ProductFlavorSection = dynamic(() => import('@/components/ProductFlavorSection'), {
   ssr: false,
 });
 
-function LazySection({ children, gradient }: { children: React.ReactNode; gradient?: string }) {
+function LazySection({ children, gradient, forceVisible }: { children: React.ReactNode; gradient?: string; forceVisible?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(forceVisible || false);
   
   useEffect(() => {
+    if (forceVisible) {
+      setIsVisible(true);
+      return;
+    }
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
@@ -31,7 +35,7 @@ function LazySection({ children, gradient }: { children: React.ReactNode; gradie
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [forceVisible]);
 
   return (
     <div ref={ref}>
@@ -41,8 +45,49 @@ function LazySection({ children, gradient }: { children: React.ReactNode; gradie
 }
 
 export default function Home() {
+  const [hashTarget, setHashTarget] = useState<string | null>(null);
+
+  // Detect URL hash on mount (e.g. navigating from /cart to /#lassi)
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      setHashTarget(hash);
+    }
+  }, []);
+
+  // Once all sections are rendered (forced by hashTarget), scroll to the element
+  const scrollToHash = useCallback(() => {
+    if (!hashTarget) return;
+
+    const attemptScroll = (retries: number) => {
+      const el = document.getElementById(hashTarget);
+      if (el) {
+        // Small delay to let Lenis initialize and layout settle
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Clear hash target after scrolling so lazy loading resumes for future sections
+          setHashTarget(null);
+        }, 100);
+      } else if (retries > 0) {
+        // Element might not be in DOM yet, retry
+        requestAnimationFrame(() => attemptScroll(retries - 1));
+      }
+    };
+
+    // Wait a frame for React to render the forced-visible sections
+    requestAnimationFrame(() => attemptScroll(20));
+  }, [hashTarget]);
+
+  useEffect(() => {
+    scrollToHash();
+  }, [scrollToHash]);
+
+  // When a hash is present, force all lazy sections to render so the target element exists
+  const hasHash = hashTarget !== null;
+
   return (
     <>
+      <VideoPreloaderManager />
       <Navbar />
 
       <main className="overflow-clip">
@@ -60,16 +105,18 @@ export default function Home() {
                 product={product}
                 nextProduct={nextProduct}
                 isLast={isLast}
+                index={index}
               />
             );
           }
 
           return (
-            <LazySection key={product.id} gradient={product.gradient}>
-              <LazyProductSection
+            <LazySection key={product.id} gradient={product.gradient} forceVisible={hasHash}>
+              <ProductFlavorSection
                 product={product}
                 nextProduct={nextProduct}
                 isLast={isLast}
+                index={index}
               />
             </LazySection>
           );
