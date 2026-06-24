@@ -8,6 +8,7 @@ import { products } from "@/data/products";
 import dynamic from "next/dynamic";
 import { useState, useEffect, useRef, useCallback } from "react";
 import VideoPreloaderManager from "@/components/video/VideoPreloaderManager";
+import { useLenis } from "lenis/react";
 
 const ProductFlavorSection = dynamic(() => import('@/components/ProductFlavorSection'), {
   ssr: false,
@@ -45,6 +46,7 @@ function LazySection({ children, gradient, forceVisible }: { children: React.Rea
 }
 
 export default function Home() {
+  const lenis = useLenis();
   const [hashTarget, setHashTarget] = useState<string | null>(null);
 
   // Detect URL hash on mount AND on hash changes (e.g. clicking nav links while on homepage)
@@ -73,7 +75,11 @@ export default function Home() {
       if (el) {
         // Small delay to let Lenis initialize and layout settle
         setTimeout(() => {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (lenis) {
+            lenis.scrollTo(el);
+          } else {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
           // Clear hash target after scrolling so lazy loading resumes for future sections
           setHashTarget(null);
         }, 100);
@@ -85,14 +91,11 @@ export default function Home() {
 
     // Wait a frame for React to render the forced-visible sections
     requestAnimationFrame(() => attemptScroll(20));
-  }, [hashTarget]);
+  }, [hashTarget, lenis]);
 
   useEffect(() => {
     scrollToHash();
   }, [scrollToHash]);
-
-  // When a hash is present, force all lazy sections to render so the target element exists
-  const hasHash = hashTarget !== null;
 
   return (
     <>
@@ -120,7 +123,7 @@ export default function Home() {
           }
 
           return (
-            <LazySection key={product.id} gradient={product.gradient} forceVisible={hasHash}>
+            <LazySection key={product.id} gradient={product.gradient} forceVisible={hashTarget === product.id}>
               <ProductFlavorSection
                 product={product}
                 nextProduct={nextProduct}

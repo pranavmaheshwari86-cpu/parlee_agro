@@ -13,7 +13,10 @@ export default async function DashboardPage() {
   try {
     const res = await fetch(`${process.env.BACKEND_URL || 'http://localhost:5000'}/api/payments`, {
       method: "GET",
-      headers: { "x-user-id": session.user.id }
+      headers: { 
+        "x-user-id": session.user.id,
+        "x-api-key": process.env.INTERNAL_API_KEY as string
+      }
     });
     const data = await res.json();
     if (data.success) {

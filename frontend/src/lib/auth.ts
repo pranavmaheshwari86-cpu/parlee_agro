@@ -15,7 +15,10 @@ export const authOptions: NextAuthOptions = {
         try {
           const res = await fetch(`${process.env.BACKEND_URL || 'http://localhost:5000'}/api/auth/login`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+              'Content-Type': 'application/json',
+              'x-api-key': process.env.INTERNAL_API_KEY as string 
+            },
             body: JSON.stringify({
               email: credentials.email,
               password: credentials.password

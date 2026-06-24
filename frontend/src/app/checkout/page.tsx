@@ -78,7 +78,7 @@ export default function CheckoutPage() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
         </Link>
-        <h1 className="font-serif text-2xl font-bold text-[#e0e2f0] tracking-tighter">Checkout</h1>
+        <h1 className="font-serif text-2xl font-bold text-[#e0e2f0] tracking-normal">Checkout</h1>
         <div className="w-6">{/* Spacer for centering */}</div>
       </header>
 
@@ -97,7 +97,7 @@ export default function CheckoutPage() {
 
         {/* Contact Information Card */}
         <section className="bg-[#1c1f29] rounded-xl p-4 sm:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)] border-t border-white/5 flex flex-col gap-6 relative overflow-hidden">
-          <h2 className="font-serif text-2xl text-[#e0e2f0] tracking-tighter border-b border-white/5 pb-4">1. Contact Information</h2>
+          <h2 className="font-serif text-2xl text-[#e0e2f0] tracking-normal border-b border-white/5 pb-4">1. Contact Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex flex-col gap-2 md:col-span-2">
               <label className="text-xs text-[#e1bec5] uppercase tracking-wider font-semibold">Full Name *</label>
@@ -139,7 +139,7 @@ export default function CheckoutPage() {
 
         {/* Delivery Address Card */}
         <section className="bg-[#1c1f29] rounded-xl p-4 sm:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)] border-t border-white/5 flex flex-col gap-6 relative overflow-hidden">
-          <h2 className="font-serif text-2xl text-[#e0e2f0] tracking-tighter border-b border-white/5 pb-4">2. Delivery Address</h2>
+          <h2 className="font-serif text-2xl text-[#e0e2f0] tracking-normal border-b border-white/5 pb-4">2. Delivery Address</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex flex-col gap-2 md:col-span-2">
               <label className="text-xs text-[#e1bec5] uppercase tracking-wider font-semibold">Complete Address *</label>
@@ -193,8 +193,8 @@ export default function CheckoutPage() {
             <span className="text-base text-[#e0e2f0]">₹{tax.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
           </div>
           <div className="flex justify-between items-center pt-2">
-            <span className="font-serif text-2xl font-bold text-[#e0e2f0] tracking-tighter">Grand Total</span>
-            <span className="font-serif text-2xl font-bold text-[#A31D33] tracking-tighter">
+            <span className="font-serif text-2xl font-bold text-[#e0e2f0] tracking-normal">Grand Total</span>
+            <span className="font-serif text-2xl font-bold text-[#A31D33] tracking-normal">
               ₹{grandTotal.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </span>
           </div>
@@ -206,7 +206,7 @@ export default function CheckoutPage() {
         <div className="flex justify-between items-center w-full">
           <div className="flex flex-col">
             <span className="text-xs text-[#e1bec5] uppercase tracking-wider font-semibold">Total</span>
-            <span className="font-serif text-2xl text-[#e0e2f0] font-bold tracking-tighter">
+            <span className="font-serif text-2xl text-[#e0e2f0] font-bold tracking-normal">
               ₹{grandTotal.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </span>
           </div>

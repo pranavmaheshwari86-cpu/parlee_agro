@@ -52,6 +52,10 @@ function NavDropdown({ label, items, scrolled }: { label: string, items: {label:
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         window.history.pushState(null, '', `/#${hash}`);
+      } else {
+        // The element might be lazy-loaded. Update hash and let page.tsx handle it
+        window.history.pushState(null, '', `/#${hash}`);
+        window.dispatchEvent(new Event('hashchange'));
       }
       setIsOpen(false);
     }
@@ -113,6 +117,10 @@ function NavLink({ href, label, scrolled }: { href: string, label: string, scrol
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         window.history.pushState(null, '', `/#${hash}`);
+      } else {
+        // The element might be lazy-loaded. Update hash and let page.tsx handle it
+        window.history.pushState(null, '', `/#${hash}`);
+        window.dispatchEvent(new Event('hashchange'));
       }
     }
   };
@@ -187,6 +195,16 @@ export default function Navbar() {
         </Link>
 
         <div className="hidden items-center gap-1 md:flex">
+          <Link 
+            href="/" 
+            className="flex items-center justify-center p-2 mr-1 rounded-full text-white hover:bg-white/10 transition-colors" 
+            aria-label="Home"
+            title="Home"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+          </Link>
           <NavDropdown label="Smoodh" items={SMOODH_ITEMS} scrolled={scrolled} />
           <NavDropdown label="Fizz" items={FIZZ_ITEMS} scrolled={scrolled} />
           <NavDropdown label="Frio" items={FRIO_ITEMS} scrolled={scrolled} />
@@ -243,7 +261,13 @@ export default function Navbar() {
             className="absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl border-b border-gray-200 shadow-lg md:hidden z-40 max-h-[calc(100vh-80px)] overflow-y-auto"
           >
             <div className="flex flex-col p-4 gap-2">
-              <div className="font-semibold text-gray-900 text-sm uppercase tracking-wider mb-2">Smoodh</div>
+              <Link href="/" onClick={() => setMobileMenuOpen(false)} className="py-2.5 px-4 rounded-xl font-medium text-gray-900 hover:bg-pink-50 transition-colors flex items-center gap-2">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                Home
+              </Link>
+              <div className="font-semibold text-gray-900 text-sm uppercase tracking-wider mb-2 mt-2">Smoodh</div>
               {SMOODH_ITEMS.map((item) => (
                 <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)} className="py-2.5 px-4 rounded-xl text-gray-700 hover:bg-pink-50 hover:text-pink-600 transition-colors">
                   {item.label}

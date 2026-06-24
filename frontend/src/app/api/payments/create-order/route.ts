@@ -8,7 +8,10 @@ export async function POST(req: Request) {
     const userId = session?.user?.id;
     
     const body = await req.json();
-    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    const headers: Record<string, string> = { 
+      'Content-Type': 'application/json',
+      'x-api-key': process.env.INTERNAL_API_KEY as string
+    };
     
     if (userId) {
       headers["x-user-id"] = userId;

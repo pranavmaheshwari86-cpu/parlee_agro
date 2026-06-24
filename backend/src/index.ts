@@ -11,9 +11,11 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+app.set("trust proxy", 1);
+
 // Middleware
 app.use(cors({
-  origin: process.env.NEXTAUTH_URL || "http://localhost:3000",
+  origin: process.env.NEXTAUTH_URL || "http://localhost:4000",
   credentials: true,
 }));
 
@@ -22,6 +24,18 @@ app.use("/api/payments/webhook", express.raw({ type: "application/json" }));
 
 // JSON body parser for everything else
 app.use(express.json());
+
+// API key verification middleware
+app.use((req, res, next) => {
+  if (req.path === "/health" || req.path === "/api/payments/webhook") {
+    return next();
+  }
+  const apiKey = req.header("x-api-key");
+  if (!apiKey || apiKey !== process.env.INTERNAL_API_KEY) {
+    return res.status(403).json({ error: "Forbidden: Invalid API Key" });
+  }
+  next();
+});
 
 // Routes
 app.use("/api/auth", authRoutes);

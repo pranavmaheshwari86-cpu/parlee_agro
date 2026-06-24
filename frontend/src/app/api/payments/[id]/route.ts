@@ -7,7 +7,10 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
     const session = await getServerSession(authOptions);
     const userId = session?.user?.id;
     
-    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    const headers: Record<string, string> = { 
+      'Content-Type': 'application/json',
+      'x-api-key': process.env.INTERNAL_API_KEY as string
+    };
     
     if (userId) {
       headers["x-user-id"] = userId;
