@@ -47,12 +47,21 @@ function LazySection({ children, gradient, forceVisible }: { children: React.Rea
 export default function Home() {
   const [hashTarget, setHashTarget] = useState<string | null>(null);
 
-  // Detect URL hash on mount (e.g. navigating from /cart to /#lassi)
+  // Detect URL hash on mount AND on hash changes (e.g. clicking nav links while on homepage)
   useEffect(() => {
-    const hash = window.location.hash.replace('#', '');
-    if (hash) {
-      setHashTarget(hash);
-    }
+    const readHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        setHashTarget(hash);
+      }
+    };
+
+    // Read on mount
+    readHash();
+
+    // Listen for hash changes (triggered by nav link clicks while already on homepage)
+    window.addEventListener('hashchange', readHash);
+    return () => window.removeEventListener('hashchange', readHash);
   }, []);
 
   // Once all sections are rendered (forced by hashTarget), scroll to the element

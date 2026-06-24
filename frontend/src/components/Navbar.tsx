@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { products } from "@/data/products";
@@ -39,6 +40,23 @@ const BAILLEY_ITEMS = [
 
 function NavDropdown({ label, items, scrolled }: { label: string, items: {label: string, href: string}[], scrolled: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    const hash = href.replace('/#', '');
+    
+    // If we're already on the homepage, scroll directly
+    if (pathname === '/') {
+      e.preventDefault();
+      const el = document.getElementById(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.history.pushState(null, '', `/#${hash}`);
+      }
+      setIsOpen(false);
+    }
+    // If on another page, let the Link navigate normally
+  };
 
   return (
     <div 
@@ -48,6 +66,7 @@ function NavDropdown({ label, items, scrolled }: { label: string, items: {label:
     >
       <Link
         href={items.length > 0 ? items[0].href : "#"}
+        onClick={(e) => handleClick(e, items.length > 0 ? items[0].href : "#")}
         className="flex items-center gap-1 rounded-full min-h-[44px] px-3 text-xl font-medium text-gray-100 hover:bg-white/10 hover:text-white transition-colors"
       >
         {label}
@@ -70,6 +89,7 @@ function NavDropdown({ label, items, scrolled }: { label: string, items: {label:
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={(e) => handleClick(e, item.href)}
                 className="block px-4 py-2 text-xl text-gray-700 transition-colors hover:bg-pink-50 hover:text-pink-600"
               >
                 {item.label}
@@ -83,9 +103,24 @@ function NavDropdown({ label, items, scrolled }: { label: string, items: {label:
 }
 
 function NavLink({ href, label, scrolled }: { href: string, label: string, scrolled: boolean }) {
+  const pathname = usePathname();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const hash = href.replace('/#', '');
+    if (pathname === '/') {
+      e.preventDefault();
+      const el = document.getElementById(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.history.pushState(null, '', `/#${hash}`);
+      }
+    }
+  };
+
   return (
     <Link
       href={href}
+      onClick={handleClick}
       className="flex items-center rounded-full min-h-[44px] px-3 text-xl font-medium text-gray-100 hover:bg-white/10 hover:text-white transition-colors"
     >
       {label}
