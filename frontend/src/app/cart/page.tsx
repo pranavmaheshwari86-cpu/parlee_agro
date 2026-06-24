@@ -67,8 +67,8 @@ export default function CartPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 {/* Mock Trending Items */}
                 <div className="bg-[#1c1718] border border-white/5 rounded-2xl p-4 flex flex-col gap-4 shadow-lg group hover:border-white/10 transition-colors">
-                  <div className="w-full h-40 bg-[#33292c] rounded-xl relative overflow-hidden border border-white/5">
-                     <Image src="/Thumbnail/Smoodh_Chocolate_Hazelnut.jpeg" alt="Hazelnut Chocolate" fill className="object-contain group-hover:scale-105 transition-transform duration-700" unoptimized />
+                  <div className="w-full aspect-[4/5] bg-[#33292c] rounded-xl relative overflow-hidden border border-white/5">
+                     <Image src="/Thumbnail/Smoodh_Chocolate_Hazelnut.jpeg" alt="Hazelnut Chocolate" fill className="object-cover group-hover:scale-105 transition-transform duration-700" unoptimized />
                      <div className="absolute inset-0 z-10 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none transform -skew-x-12"></div>
                   </div>
                   <div>
@@ -81,8 +81,8 @@ export default function CartPage() {
                 </div>
                 
                 <div className="bg-[#1c1718] border border-white/5 rounded-2xl p-4 flex flex-col gap-4 shadow-lg group hover:border-white/10 transition-colors">
-                  <div className="w-full h-40 bg-[#33292c] rounded-xl relative overflow-hidden border border-white/5">
-                     <Image src="/Thumbnail/Bailey_Soda.png" alt="Bailley Soda" fill className="object-contain group-hover:scale-105 transition-transform duration-700" unoptimized />
+                  <div className="w-full aspect-[4/5] bg-[#33292c] rounded-xl relative overflow-hidden border border-white/5">
+                     <Image src="/Thumbnail/Bailey_Soda.png" alt="Bailley Soda" fill className="object-cover group-hover:scale-105 transition-transform duration-700" unoptimized />
                      <div className="absolute inset-0 z-10 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none transform -skew-x-12"></div>
                   </div>
                   <div>
@@ -95,8 +95,8 @@ export default function CartPage() {
                 </div>
 
                 <div className="bg-[#1c1718] border border-white/5 rounded-2xl p-4 flex flex-col gap-4 shadow-lg group hover:border-white/10 transition-colors hidden md:flex">
-                  <div className="w-full h-40 bg-[#33292c] rounded-xl relative overflow-hidden border border-white/5">
-                     <Image src="/Thumbnail/Frio_Lime.png" alt="Lemon Frio" fill className="object-contain group-hover:scale-105 transition-transform duration-700" unoptimized />
+                  <div className="w-full aspect-[4/5] bg-[#33292c] rounded-xl relative overflow-hidden border border-white/5">
+                     <Image src="/Thumbnail/Frio_Lime.png" alt="Lemon Frio" fill className="object-cover group-hover:scale-105 transition-transform duration-700" unoptimized />
                      <div className="absolute inset-0 z-10 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none transform -skew-x-12"></div>
                   </div>
                   <div>
@@ -134,14 +134,14 @@ export default function CartPage() {
                     </button>
                     
                     {/* Image */}
-                    <div className="w-full sm:w-[220px] h-[220px] rounded-3xl bg-[#33292c] flex-shrink-0 relative overflow-hidden border border-white/5 shadow-inner">
+                    <div className="w-full sm:w-[180px] aspect-[4/5] rounded-3xl bg-[#33292c] flex-shrink-0 relative overflow-hidden border border-white/5 shadow-inner">
                       {item.image && (
                         <>
                           <Image 
                             src={item.image} 
                             alt={item.name} 
                             fill 
-                            className="object-contain group-hover:scale-105 transition-transform duration-700" 
+                            className="object-cover group-hover:scale-105 transition-transform duration-700" 
                             unoptimized 
                           />
                           {/* Sheen Effect */}
