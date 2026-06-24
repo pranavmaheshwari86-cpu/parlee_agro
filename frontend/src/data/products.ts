@@ -37,10 +37,10 @@ export const products: Product[] = [
     detailImage: "/Thumbnail/Smoodh_Lassi.jpeg",
     name: "Smoodh Lassi",
     subName: "Creamy tradition.",
-    price: "₹30",
+    price: "₹20",
     packages: [
       { id: "lassi-80ml", label: "80ml Tetra", price: "₹10", unit: "per 80ml Tetra" },
-      { id: "lassi-180ml", label: "180ml PET", price: "₹20", unit: "per 180ml PET" },
+      { id: "lassi-180ml", label: "180ml PET", price: "₹20", unit: "per 180ml PET" }
     ],
     description: "Real Dahi - Rose Infused - No Artificial Flavors",
     folderPath: "",
@@ -80,8 +80,8 @@ export const products: Product[] = [
         "Our lassi is prepared in small batches using fresh dahi and immediately chilled to lock in the live cultures and creamy texture. The cold-chain is maintained from our dairy to your doorstep, ensuring every bottle delivers the same fresh-from-the-matka taste. Real ingredients, real freshness.",
     },
     buyNowSection: {
-      price: "₹30",
-      unit: "per 150ml bottle",
+      price: "₹20",
+      unit: "per 180ml PET",
       processingParams: ["Real Dahi", "Rose Infused", "Probiotic Rich"],
       deliveryPromise:
         "Available at stores near you. Chilled packaging ensures peak freshness.",
@@ -94,10 +94,10 @@ export const products: Product[] = [
     detailImage: "/Thumbnail/Smoodh_Chocolate.jpeg",
     name: "Smoodh Chocolate",
     subName: "Velvety indulgence.",
-    price: "₹30",
+    price: "₹20",
     packages: [
       { id: "chocolate-80ml", label: "80ml Tetra", price: "₹10", unit: "per 80ml Tetra" },
-      { id: "chocolate-180ml", label: "180ml PET", price: "₹20", unit: "per 180ml PET" },
+      { id: "chocolate-150ml", label: "150ml PET", price: "₹20", unit: "per 150ml PET" }
     ],
     description: "Rich Cocoa - Flavoured Milk - Smooth & Creamy",
     folderPath: "",
@@ -137,8 +137,8 @@ export const products: Product[] = [
         "Our chocolate milk is blended using a precise cocoa-to-milk ratio that delivers maximum flavor with a silky mouthfeel. We use quality cocoa sourced for its deep, robust profile and combine it with farm-fresh milk. The result is a smooth, consistent chocolate drink that's leagues ahead of the competition.",
     },
     buyNowSection: {
-      price: "₹30",
-      unit: "per 150ml bottle",
+      price: "₹20",
+      unit: "per 150ml PET",
       processingParams: ["Rich Cocoa", "Fresh Milk", "Perfectly Blended"],
       deliveryPromise:
         "Available at stores nationwide. Enjoy chilled for the best experience.",
@@ -150,10 +150,10 @@ export const products: Product[] = [
     detailImage: "/Thumbnail/Smoodh_Chocolate_Hazelnut.jpeg",
     name: "Smoodh Chocolate Hazelnut",
     subName: "Nutty perfection.",
-    price: "₹30",
+    price: "₹20",
     packages: [
       { id: "hazelnut-80ml", label: "80ml Tetra", price: "₹10", unit: "per 80ml Tetra" },
-      { id: "hazelnut-180ml", label: "180ml PET", price: "₹20", unit: "per 180ml PET" },
+      { id: "hazelnut-150ml", label: "150ml PET", price: "₹20", unit: "per 150ml PET" }
     ],
     description: "Chocolate & Hazelnut - Flavoured Milk - Premium Blend",
     folderPath: "",
@@ -199,8 +199,8 @@ export const products: Product[] = [
         "The balance between chocolate and hazelnut is an art. Too much of either and the magic is lost. Our blend masters have perfected the ratio — the cocoa provides depth and richness, while the hazelnut adds a buttery, aromatic finish. Combined with fresh milk, the result is a harmonious drink that's smooth, nutty, and utterly addictive.",
     },
     buyNowSection: {
-      price: "₹30",
-      unit: "per 150ml bottle",
+      price: "₹20",
+      unit: "per 150ml PET",
       processingParams: ["Rich Cocoa", "Roasted Hazelnut", "Fresh Milk"],
       deliveryPromise:
         "Available at stores nationwide. Best served chilled.",
@@ -212,10 +212,10 @@ export const products: Product[] = [
     detailImage: "/Thumbnail/Smoodh_Coffee_Frape.jpeg",
     name: "Smoodh Coffee Frappe",
     subName: "Café style refreshment.",
-    price: "₹30",
+    price: "₹20",
     packages: [
       { id: "coffee-80ml", label: "80ml Tetra", price: "₹10", unit: "per 80ml Tetra" },
-      { id: "coffee-180ml", label: "180ml PET", price: "₹20", unit: "per 180ml PET" },
+      { id: "coffee-150ml", label: "150ml PET", price: "₹20", unit: "per 150ml PET" }
     ],
     description: "Premium Coffee - Flavoured Milk - Smooth Creamy Texture",
     folderPath: "/images/coffee-frappe",
@@ -255,8 +255,8 @@ export const products: Product[] = [
         "Our coffee frappe is created through a meticulous blending process that marries robust coffee extract with our signature high-quality milk. We ensure flavor consistency in every batch, so every bottle delivers that perfect harmony of bold coffee notes and creamy sweetness, kept fresh and delicious.",
     },
     buyNowSection: {
-      price: "₹30",
-      unit: "per 150ml bottle",
+      price: "₹20",
+      unit: "per 150ml PET",
       processingParams: ["Aromatic Coffee", "Premium Milk", "Smoothly Blended"],
       deliveryPromise:
         "Available at stores nationwide. Enjoy chilled for the ultimate café experience.",
@@ -268,10 +268,10 @@ export const products: Product[] = [
     detailImage: "/Thumbnail/Smoodh_Kesar_Badam.png",
     name: "Smoodh Kesar Badam",
     subName: "Royal richness.",
-    price: "₹30",
+    price: "₹20",
     packages: [
       { id: "kesar-80ml", label: "80ml Tetra", price: "₹10", unit: "per 80ml Tetra" },
-      { id: "kesar-180ml", label: "180ml PET", price: "₹20", unit: "per 180ml PET" },
+      { id: "kesar-150ml", label: "150ml PET", price: "₹20", unit: "per 150ml PET" }
     ],
     description: "Saffron & Almond - Flavoured Milk - Traditional Recipe",
     folderPath: "",
@@ -311,8 +311,8 @@ export const products: Product[] = [
         "We source only the finest ingredients to create our Kesar Badam flavoured milk. The saffron is carefully selected for its vibrant color and distinct aroma, perfectly complementing our high-quality milk base. Our advanced blending process ensures a smooth, lump-free consistency that preserves the integrity of these traditional ingredients.",
     },
     buyNowSection: {
-      price: "₹30",
-      unit: "per 150ml bottle",
+      price: "₹20",
+      unit: "per 150ml PET",
       processingParams: ["Premium Saffron", "Rich Almonds", "High-Quality Milk"],
       deliveryPromise:
         "Available at stores nationwide. Best served chilled.",
@@ -324,10 +324,10 @@ export const products: Product[] = [
     detailImage: "/Thumbnail/Smoodh_ToffeeCaramel.png",
     name: "Smoodh Toffee Caramel",
     subName: "Sweet nostalgia.",
-    price: "₹30",
+    price: "₹20",
     packages: [
       { id: "toffee-80ml", label: "80ml Tetra", price: "₹10", unit: "per 80ml Tetra" },
-      { id: "toffee-180ml", label: "180ml PET", price: "₹20", unit: "per 180ml PET" },
+      { id: "toffee-150ml", label: "150ml PET", price: "₹20", unit: "per 150ml PET" }
     ],
     description: "Caramel & Toffee - Flavoured Milk - Comforting Sweetness",
     folderPath: "",
@@ -367,8 +367,8 @@ export const products: Product[] = [
         "Creating the perfect caramel milk requires precision. We balance the deep, complex notes of toffee and caramel with a premium, fresh milk base to ensure the sweetness is just right. Our smooth blending technique guarantees a silky texture that elevates this comforting flavor combination.",
     },
     buyNowSection: {
-      price: "₹30",
-      unit: "per 150ml bottle",
+      price: "₹20",
+      unit: "per 150ml PET",
       processingParams: ["Golden Caramel", "Classic Toffee", "Premium Milk Base"],
       deliveryPromise:
         "Available at stores nationwide. Enjoy chilled for a delicious treat.",
@@ -382,10 +382,10 @@ export const products: Product[] = [
     subName: "Electrifying Sparkle.",
     price: "₹20",
     packages: [
-      { id: "appy-160ml", label: "160ml PET", price: "₹10", unit: "per 160ml PET" },
+      { id: "appy-160ml", label: "160ml PET", price: "₹15", unit: "per 160ml PET" },
       { id: "appy-250ml", label: "250ml PET", price: "₹20", unit: "per 250ml PET" },
       { id: "appy-600ml", label: "600ml PET", price: "₹40", unit: "per 600ml PET" },
-      { id: "appy-1l", label: "1L PET", price: "₹65", unit: "per 1L PET" },
+      { id: "appy-1l", label: "1L PET", price: "₹65", unit: "per 1L PET" }
     ],
     description: "Sparkling apple fizz crafted to electrify every sip.",
     folderPath: "/images/appy-fizz",
@@ -434,9 +434,9 @@ export const products: Product[] = [
     subName: "Intense. Masculine. Bold.",
     price: "₹20",
     packages: [
-      { id: "bfizz-160ml", label: "160ml PET", price: "₹10", unit: "per 160ml PET" },
+      { id: "bfizz-160ml", label: "160ml PET", price: "₹15", unit: "per 160ml PET" },
       { id: "bfizz-250ml", label: "250ml PET", price: "₹20", unit: "per 250ml PET" },
-      { id: "bfizz-600ml", label: "600ml PET", price: "₹40", unit: "per 600ml PET" },
+      { id: "bfizz-600ml", label: "600ml PET", price: "₹40", unit: "per 600ml PET" }
     ],
     description: "A dark malt-flavored sparkling sensation for the bold.",
     folderPath: "/images/b-fizz",
@@ -483,12 +483,14 @@ export const products: Product[] = [
     detailImage: "/Thumbnail/Frooti.jpeg",
     name: "Frooti",
     subName: "Fresh 'N' Juicy",
-    price: "₹15",
+    price: "₹20",
     packages: [
       { id: "frooti-125ml", label: "125ml Tetra", price: "₹10", unit: "per 125ml Tetra" },
-      { id: "frooti-330ml", label: "330ml PET", price: "₹20", unit: "per 330ml PET" },
+      { id: "frooti-160ml", label: "160ml Tetra", price: "₹15", unit: "per 160ml Tetra" },
+      { id: "frooti-300ml", label: "300ml PET", price: "₹20", unit: "per 300ml PET" },
+      { id: "frooti-600ml", label: "600ml PET", price: "₹40", unit: "per 600ml PET" },
       { id: "frooti-1.2l", label: "1.2L PET", price: "₹60", unit: "per 1.2L PET" },
-      { id: "frooti-2l", label: "2L PET", price: "₹100", unit: "per 2L PET" },
+      { id: "frooti-2l", label: "2L PET", price: "₹100", unit: "per 2L PET" }
     ],
     description: "The iconic, original mango drink loved by generations.",
     folderPath: "/images/frooti",
@@ -523,8 +525,8 @@ export const products: Product[] = [
       description: "Our mangoes are harvested at the absolute peak of their ripeness and immediately pulped to capture their natural aroma and sweetness. Flash-pasteurization ensures that the fresh, tropical taste remains untouched by time.",
     },
     buyNowSection: {
-      price: "₹15",
-      unit: "per 160ml Tetra Pak",
+      price: "₹20",
+      unit: "per 300ml PET",
       processingParams: ["Real Mango Pulp", "No Preservatives", "Nostalgic Taste"],
       deliveryPromise: "Delivered fresh. Enjoy the taste of summer instantly.",
       returnPolicy: "Quality guaranteed in every pack.",
@@ -539,7 +541,7 @@ export const products: Product[] = [
     packages: [
       { id: "friocola-250ml", label: "250ml PET", price: "₹20", unit: "per 250ml PET" },
       { id: "friocola-600ml", label: "600ml PET", price: "₹40", unit: "per 600ml PET" },
-      { id: "friocola-1.5l", label: "1.5L PET", price: "₹80", unit: "per 1.5L PET" },
+      { id: "friocola-1.5l", label: "1.5L PET", price: "₹80", unit: "per 1.5L PET" }
     ],
     description: "An electrifying twist on the classic dark cola experience.",
     folderPath: "/images/frio-cola",
@@ -590,7 +592,7 @@ export const products: Product[] = [
     packages: [
       { id: "friolime-250ml", label: "250ml PET", price: "₹20", unit: "per 250ml PET" },
       { id: "friolime-600ml", label: "600ml PET", price: "₹40", unit: "per 600ml PET" },
-      { id: "friolime-1.5l", label: "1.5L PET", price: "₹80", unit: "per 1.5L PET" },
+      { id: "friolime-1.5l", label: "1.5L PET", price: "₹80", unit: "per 1.5L PET" }
     ],
     description: "A zesty, refreshing clear lime drink.",
     folderPath: "",
@@ -642,7 +644,7 @@ export const products: Product[] = [
     packages: [
       { id: "frioorange-250ml", label: "250ml PET", price: "₹20", unit: "per 250ml PET" },
       { id: "frioorange-600ml", label: "600ml PET", price: "₹40", unit: "per 600ml PET" },
-      { id: "frioorange-1.5l", label: "1.5L PET", price: "₹80", unit: "per 1.5L PET" },
+      { id: "frioorange-1.5l", label: "1.5L PET", price: "₹80", unit: "per 1.5L PET" }
     ],
     description: "A burst of tangy orange wrapped in intense carbonation.",
     folderPath: "",
@@ -684,10 +686,9 @@ export const products: Product[] = [
     detailImage: "/Thumbnail/Bombay99_ClubSoda.png",
     name: "Bombay 99 Club Soda",
     subName: "Crisp & Clean.",
-    price: "₹20",
+    price: "₹60",
     packages: [
-      { id: "clubsoda-250ml", label: "250ml PET", price: "₹20", unit: "per 250ml PET" },
-      { id: "clubsoda-750ml", label: "750ml PET", price: "₹50", unit: "per 750ml PET" },
+      { id: "clubsoda-250ml", label: "250ml Can", price: "₹60", unit: "per 250ml Can" }
     ],
     description: "Premium carbonated water for the perfect mix.",
     folderPath: "",
@@ -723,8 +724,8 @@ export const products: Product[] = [
       description: "We use an advanced multi-stage filtration process to ensure the purest water base. This pristine water is then super-chilled and carbonated to lock in a tight, bubbly fizz that lasts longer in your glass.",
     },
     buyNowSection: {
-      price: "₹20",
-      unit: "per 250ml PET",
+      price: "₹60",
+      unit: "per 250ml Can",
       processingParams: ["Ultra-Filtered Water", "Max Carbonation", "Balanced Minerals"],
       deliveryPromise: "Fast delivery.",
       returnPolicy: "Satisfaction guaranteed.",
@@ -735,10 +736,9 @@ export const products: Product[] = [
     detailImage: "/Thumbnail/Bomabay99_GingerAle.png",
     name: "Bombay 99 Ginger Ale",
     subName: "Spicy & Sweet.",
-    price: "₹20",
+    price: "₹60",
     packages: [
-      { id: "gingerale-250ml", label: "250ml PET", price: "₹20", unit: "per 250ml PET" },
-      { id: "gingerale-750ml", label: "750ml PET", price: "₹50", unit: "per 750ml PET" },
+      { id: "gingerale-250ml", label: "250ml Can", price: "₹60", unit: "per 250ml Can" }
     ],
     description: "Classic ginger ale with a perfect balance of spice and sweetness.",
     folderPath: "",
@@ -774,8 +774,8 @@ export const products: Product[] = [
       description: "Our ginger ale is made using high-quality ginger extracts. The blending process ensures that the delicate spice notes are preserved, while our precision carbonation gives it a lively, effervescent mouthfeel.",
     },
     buyNowSection: {
-      price: "₹20",
-      unit: "per 250ml PET",
+      price: "₹60",
+      unit: "per 250ml Can",
       processingParams: ["Ginger Extract", "Balanced Sweetness", "Crisp Fizz"],
       deliveryPromise: "Fast delivery.",
       returnPolicy: "Satisfaction guaranteed.",
@@ -786,10 +786,9 @@ export const products: Product[] = [
     detailImage: "/Thumbnail/Bomabay99_IndianTonicWater.png",
     name: "Bombay 99 Tonic Water",
     subName: "Bitter & Botanical.",
-    price: "₹20",
+    price: "₹60",
     packages: [
-      { id: "tonic-250ml", label: "250ml PET", price: "₹20", unit: "per 250ml PET" },
-      { id: "tonic-750ml", label: "750ml PET", price: "₹50", unit: "per 750ml PET" },
+      { id: "tonic-250ml", label: "250ml Can", price: "₹60", unit: "per 250ml Can" }
     ],
     description: "Premium Indian tonic water with distinctive quinine bitterness.",
     folderPath: "",
@@ -825,8 +824,8 @@ export const products: Product[] = [
       description: "We source high-quality quinine to ensure an authentic, crisp bitterness. Our careful formulation balances this with natural botanicals and intense carbonation to create a tonic water that stays bubbly and flavorful.",
     },
     buyNowSection: {
-      price: "₹20",
-      unit: "per 250ml PET",
+      price: "₹60",
+      unit: "per 250ml Can",
       processingParams: ["Premium Quinine", "Natural Botanicals", "Crisp Carbonation"],
       deliveryPromise: "Fast delivery.",
       returnPolicy: "Satisfaction guaranteed.",
@@ -839,8 +838,9 @@ export const products: Product[] = [
     subName: "Extra Punch.",
     price: "₹15",
     packages: [
-      { id: "bailleylsoda-250ml", label: "250ml PET", price: "₹15", unit: "per 250ml PET" },
-      { id: "bailleylsoda-750ml", label: "750ml PET", price: "₹40", unit: "per 750ml PET" },
+      { id: "bailleylsoda-300ml", label: "300ml PET", price: "₹15", unit: "per 300ml PET" },
+      { id: "bailleylsoda-600ml", label: "600ml PET", price: "₹30", unit: "per 600ml PET" },
+      { id: "bailleylsoda-750ml", label: "750ml PET", price: "₹40", unit: "per 750ml PET" }
     ],
     description: "Premium soda water with an extra punch of carbonation.",
     folderPath: "",
@@ -871,7 +871,7 @@ export const products: Product[] = [
     },
     buyNowSection: {
       price: "₹15",
-      unit: "per 250ml PET",
+      unit: "per 300ml PET",
       processingParams: ["Filtered Water", "Extra Carbonation", "Balanced Minerals"],
       deliveryPromise: "Fast delivery.",
       returnPolicy: "Satisfaction guaranteed.",
@@ -882,11 +882,13 @@ export const products: Product[] = [
     detailImage: "/Thumbnail/Bailey_Water.png",
     name: "Bailley Water",
     subName: "Pure. Safe. Refreshing.",
-    price: "₹10",
+    price: "₹20",
     packages: [
-      { id: "bailley-water-250ml", label: "250ml", price: "₹5", unit: "per 250ml Bottle" },
+      { id: "bailley-water-250ml", label: "250ml", price: "₹6", unit: "per 250ml Bottle" },
       { id: "bailley-water-500ml", label: "500ml", price: "₹10", unit: "per 500ml Bottle" },
       { id: "bailley-water-1l", label: "1L", price: "₹20", unit: "per 1L Bottle" },
+      { id: "bailley-water-5l", label: "5L", price: "₹65", unit: "per 5L Bottle" },
+      { id: "bailley-water-20l", label: "20L Jar", price: "₹130", unit: "per 20L Jar" }
     ],
     description: "Packaged drinking water with added minerals.",
     folderPath: "",
@@ -928,10 +930,10 @@ export const products: Product[] = [
     detailImage: "/Thumbnail/Dhishoom.png",
     name: "Dhishoom",
     subName: "Jeera Masala Punch.",
-    price: "₹20",
+    price: "₹10",
     packages: [
-      { id: "dhishoom-160ml", label: "160ml PET", price: "₹10", unit: "per 160ml PET" },
-      { id: "dhishoom-250ml", label: "250ml PET", price: "₹20", unit: "per 250ml PET" },
+      { id: "dhishoom-125ml", label: "125ml PET", price: "₹10", unit: "per 125ml PET" },
+      { id: "dhishoom-250ml", label: "250ml PET", price: "₹20", unit: "per 250ml PET" }
     ],
     description: "A lip-smacking jeera masala soda with a punch.",
     folderPath: "",
@@ -962,7 +964,7 @@ export const products: Product[] = [
     },
     buyNowSection: {
       price: "₹10",
-      unit: "per 200ml PET",
+      unit: "per 125ml PET",
       processingParams: ["Real Jeera", "Authentic Spices", "Strong Fizz"],
       deliveryPromise: "Fast delivery.",
       returnPolicy: "Satisfaction guaranteed.",
