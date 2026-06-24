@@ -15,7 +15,7 @@ app.set("trust proxy", 1);
 
 // Middleware
 app.use(cors({
-  origin: process.env.NEXTAUTH_URL || "http://localhost:4000",
+  origin: process.env.NEXTAUTH_URL || ["http://localhost:4000", "http://localhost:3001"],
   credentials: true,
 }));
 

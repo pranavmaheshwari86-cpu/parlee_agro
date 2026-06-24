@@ -55,7 +55,7 @@ export default function MP4VideoPlayer({
           }
         }
       },
-      { rootMargin: '1000px' }
+      { rootMargin: '200px' }
     );
 
     if (containerRef.current) {

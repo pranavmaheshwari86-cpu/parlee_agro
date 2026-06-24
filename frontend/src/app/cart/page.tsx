@@ -7,9 +7,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/store/useCartStore";
 import Navbar from "@/components/Navbar";
+import { products } from "@/data/products";
 
 export default function CartPage() {
-  const { items, removeFromCart, updateQuantity, getSubtotal } = useCartStore();
+  const { items, removeFromCart, updateQuantity, getSubtotal, addToCart } = useCartStore();
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
 
@@ -65,48 +66,36 @@ export default function CartPage() {
             <div className="w-full max-w-4xl text-left border-t border-white/5 pt-12">
               <h3 className="text-2xl font-serif text-white mb-6 tracking-tighter">Trending Right Now</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {/* Mock Trending Items */}
-                <div className="bg-[#1c1718] border border-white/5 rounded-2xl p-4 flex flex-col gap-4 shadow-lg group hover:border-white/10 transition-colors">
-                  <div className="w-full aspect-[4/5] bg-[#33292c] rounded-xl relative overflow-hidden border border-white/5">
-                     <Image src="/Thumbnail/Smoodh_Chocolate_Hazelnut.jpeg" alt="Hazelnut Chocolate" fill className="object-cover group-hover:scale-105 transition-transform duration-700" unoptimized />
-                     <div className="absolute inset-0 z-10 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none transform -skew-x-12"></div>
-                  </div>
-                  <div>
-                    <h4 className="text-white font-serif text-lg tracking-tight">Hazelnut Chocolate</h4>
-                    <p className="text-[#A31D33] font-bold mt-1">₹30.00</p>
-                  </div>
-                  <Link href="/products/chocolate-hazelnut" className="w-full py-2 bg-[#141011] border border-[#A31D33]/30 text-[#e1bec5] text-sm text-center rounded-lg font-bold tracking-wider uppercase hover:bg-[#A31D33] hover:text-white transition-colors active:scale-[0.98]">
-                    Shop Now
-                  </Link>
-                </div>
-                
-                <div className="bg-[#1c1718] border border-white/5 rounded-2xl p-4 flex flex-col gap-4 shadow-lg group hover:border-white/10 transition-colors">
-                  <div className="w-full aspect-[4/5] bg-[#33292c] rounded-xl relative overflow-hidden border border-white/5">
-                     <Image src="/Thumbnail/Bailey_Soda.png" alt="Bailley Soda" fill className="object-cover group-hover:scale-105 transition-transform duration-700" unoptimized />
-                     <div className="absolute inset-0 z-10 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none transform -skew-x-12"></div>
-                  </div>
-                  <div>
-                    <h4 className="text-white font-serif text-lg tracking-tight">Bailley Soda</h4>
-                    <p className="text-[#A31D33] font-bold mt-1">₹15.00</p>
-                  </div>
-                  <Link href="/products/bailley-soda" className="w-full py-2 bg-[#141011] border border-[#A31D33]/30 text-[#e1bec5] text-sm text-center rounded-lg font-bold tracking-wider uppercase hover:bg-[#A31D33] hover:text-white transition-colors active:scale-[0.98]">
-                    Shop Now
-                  </Link>
-                </div>
-
-                <div className="bg-[#1c1718] border border-white/5 rounded-2xl p-4 flex flex-col gap-4 shadow-lg group hover:border-white/10 transition-colors hidden md:flex">
-                  <div className="w-full aspect-[4/5] bg-[#33292c] rounded-xl relative overflow-hidden border border-white/5">
-                     <Image src="/Thumbnail/Frio_Lime.png" alt="Lemon Frio" fill className="object-cover group-hover:scale-105 transition-transform duration-700" unoptimized />
-                     <div className="absolute inset-0 z-10 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none transform -skew-x-12"></div>
-                  </div>
-                  <div>
-                    <h4 className="text-white font-serif text-lg tracking-tight">Lemon Frio</h4>
-                    <p className="text-[#A31D33] font-bold mt-1">₹20.00</p>
-                  </div>
-                  <Link href="/products/frio-lime" className="w-full py-2 bg-[#141011] border border-[#A31D33]/30 text-[#e1bec5] text-sm text-center rounded-lg font-bold tracking-wider uppercase hover:bg-[#A31D33] hover:text-white transition-colors active:scale-[0.98]">
-                    Shop Now
-                  </Link>
-                </div>
+                {products
+                  .filter(p => ["chocolate-hazelnut", "bailley-soda", "frio-lime"].includes(p.id))
+                  .map((product, i) => (
+                    <div key={product.id} className={`bg-[#1c1718] border border-white/5 rounded-2xl p-4 flex flex-col gap-4 shadow-lg group hover:border-white/10 transition-colors ${i === 2 ? 'hidden md:flex' : ''}`}>
+                      <div className="w-full aspect-[4/5] bg-[#33292c] rounded-xl relative overflow-hidden border border-white/5">
+                        <Image src={product.detailImage || ''} alt={product.name} fill className="object-cover group-hover:scale-105 transition-transform duration-700" unoptimized />
+                        <div className="absolute inset-0 z-10 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none transform -skew-x-12"></div>
+                      </div>
+                      <div>
+                        <h4 className="text-white font-serif text-lg tracking-tight">{product.name}</h4>
+                        <p className="text-[#A31D33] font-bold mt-1">{product.price}</p>
+                      </div>
+                      <button 
+                        onClick={() => {
+                          const numPrice = parseFloat(product.price.replace(/[^0-9.]/g, ''));
+                          addToCart({
+                            productId: product.id,
+                            name: product.name,
+                            subName: product.subName,
+                            price: isNaN(numPrice) ? 20 : numPrice,
+                            themeColor: product.themeColor,
+                            image: product.detailImage
+                          });
+                        }}
+                        className="w-full py-2 bg-[#141011] border border-[#A31D33]/30 text-[#e1bec5] text-sm text-center rounded-lg font-bold tracking-wider uppercase hover:bg-[#A31D33] hover:text-white transition-colors active:scale-[0.98]"
+                      >
+                        Shop Now
+                      </button>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>

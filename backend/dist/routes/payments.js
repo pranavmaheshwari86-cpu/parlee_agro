@@ -134,7 +134,8 @@ router.post("/webhook", async (req, res) => {
             .createHmac("sha256", webhookSecret)
             .update(rawBody)
             .digest("hex");
-        if (expectedSignature !== signature) {
+        const isValid = crypto_1.default.timingSafeEqual(Buffer.from(expectedSignature), Buffer.from(signature));
+        if (!isValid) {
             return res.status(400).json({ error: "Invalid webhook signature" });
         }
         const event = JSON.parse(rawBody);

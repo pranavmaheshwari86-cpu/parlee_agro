@@ -7,7 +7,6 @@ import ProductSkeleton from "@/components/ProductSkeleton";
 import { products } from "@/data/products";
 import dynamic from "next/dynamic";
 import { useState, useEffect, useRef, useCallback } from "react";
-import VideoPreloaderManager from "@/components/video/VideoPreloaderManager";
 import { useLenis } from "lenis/react";
 
 const ProductFlavorSection = dynamic(() => import('@/components/ProductFlavorSection'), {
@@ -99,7 +98,6 @@ export default function Home() {
 
   return (
     <>
-      <VideoPreloaderManager />
       <Navbar />
 
       <main className="overflow-clip">
@@ -109,6 +107,9 @@ export default function Home() {
           const isFirstTwo = index < 2;
           const nextProduct = products[index + 1];
           const isLast = index === products.length - 1;
+
+          const targetIndex = hashTarget ? products.findIndex(p => p.id === hashTarget) : -1;
+          const forceVisible = targetIndex !== -1 && index <= targetIndex;
 
           if (isFirstTwo) {
             return (
@@ -123,7 +124,7 @@ export default function Home() {
           }
 
           return (
-            <LazySection key={product.id} gradient={product.gradient} forceVisible={hashTarget === product.id}>
+            <LazySection key={product.id} gradient={product.gradient} forceVisible={forceVisible}>
               <ProductFlavorSection
                 product={product}
                 nextProduct={nextProduct}
