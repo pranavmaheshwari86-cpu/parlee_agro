@@ -31,6 +31,7 @@ export default function MP4VideoPlayer({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
   
   const setVisibleIndex = useVideoPreloadStore((state) => state.setVisibleIndex);
 
@@ -54,7 +55,7 @@ export default function MP4VideoPlayer({
           }
         }
       },
-      { rootMargin: '400px' }
+      { rootMargin: '1000px' }
     );
 
     if (containerRef.current) {
@@ -82,7 +83,7 @@ export default function MP4VideoPlayer({
   }, [shouldLoad, playsInline]);
 
   return (
-    <div ref={containerRef} className={`relative overflow-hidden ${className}`}>
+    <div ref={containerRef} className={`relative overflow-hidden bg-black ${className}`}>
       {shouldLoad && (
         <video
           ref={videoRef}
@@ -93,16 +94,17 @@ export default function MP4VideoPlayer({
           muted={muted}
           controls={controls}
           playsInline={playsInline}
-          preload="none"
-          className="w-full h-full object-cover transition-transform duration-300"
+          preload="auto"
+          onCanPlay={() => setIsVideoReady(true)}
+          className={`w-full h-full object-cover transition-opacity duration-500 ${isVideoReady ? 'opacity-100' : 'opacity-0'}`}
           style={{
             backfaceVisibility: 'hidden',
             willChange: isPlaying ? 'transform' : 'auto',
           }}
         />
       )}
-      {!shouldLoad && poster && (
-        <Image src={poster} alt="" fill className="object-cover" unoptimized={true} />
+      {poster && (!shouldLoad || !isVideoReady) && (
+        <Image src={poster} alt="" fill className="object-cover" unoptimized={true} priority={index === 0} />
       )}
     </div>
   );

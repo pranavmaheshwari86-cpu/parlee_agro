@@ -75,7 +75,7 @@ export default function ProductVideoScroll({
     >
       <div className="absolute inset-0 z-0 bg-black">
         <div className="absolute inset-0 h-full w-full z-0 origin-center">
-          <MP4VideoPlayer src={product.videoSrc || ""} className="w-full h-full object-cover" autoPlay={true} index={index} />
+          <MP4VideoPlayer src={product.videoSrc || ""} poster={product.detailImage} className="w-full h-full object-cover" autoPlay={true} index={index} />
         </div>
         
         {/* Static dark overlay for text readability */}
