@@ -104,7 +104,7 @@ export default function MP4VideoPlayer({
         />
       )}
       {poster && (!shouldLoad || !isVideoReady) && (
-        <Image src={poster} alt="" fill className="object-cover" unoptimized={true} priority={index === 0} />
+        <Image src={poster} alt="" fill className="object-cover" unoptimized={true} priority={true} />
       )}
     </div>
   );

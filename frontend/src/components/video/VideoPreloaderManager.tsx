@@ -1,64 +1,69 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useVideoPreloadStore } from '@/store/useVideoPreloadStore';
 import { products } from '@/data/products';
 
-// Helper to check network speed
-const isSlowNetwork = () => {
-  if (typeof window !== 'undefined' && 'connection' in navigator) {
-    const conn = (navigator as any).connection;
-    if (conn.saveData) return true;
-    if (['slow-2g', '2g', '3g'].includes(conn.effectiveType)) return true;
-  }
-  return false;
-};
-
 export default function VideoPreloaderManager() {
   const { visibleIndex, states, setPreloadState } = useVideoPreloadStore();
-  const [preloadUrls, setPreloadUrls] = useState<string[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const loadingRef = useRef<boolean>(false);
 
   useEffect(() => {
-    if (visibleIndex === null) return;
-    
-    // Calculate which videos to preload
-    const preloadCount = isSlowNetwork() ? 1 : 2; // Throttle on slow networks
-    const newUrls: string[] = [];
-    
-    for (let i = 1; i <= preloadCount; i++) {
-      const targetIndex = visibleIndex + i;
-      if (targetIndex >= products.length) continue;
-      
-      const product = products[targetIndex];
-      // Only preload mp4 videos as per requirements
-      if (product.videoType !== 'mp4' || !product.videoSrc) continue;
-      
-      const state = states[targetIndex];
-      if (state === 'preloading' || state === 'loaded') continue;
-      
-      // Start preloading
-      setPreloadState(targetIndex, 'preloading');
-      newUrls.push(product.videoSrc);
-      
-      // We will create the links dynamically, but we also want to track when they finish
-      // to update the state to "loaded". We can do this with standard DOM elements.
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'video';
-      link.href = product.videoSrc;
-      
-      link.onload = () => setPreloadState(targetIndex, 'loaded');
-      link.onerror = () => setPreloadState(targetIndex, 'not_loaded');
-      
-      document.head.appendChild(link);
-    }
-    
-    if (newUrls.length > 0) {
-      setPreloadUrls(prev => [...prev, ...newUrls]);
-    }
-  }, [visibleIndex, states, setPreloadState]);
+    // If we are currently loading a video, wait for it to finish
+    if (loadingRef.current) return;
 
-  // We don't need to render anything visually. The DOM elements appended to head do the work.
-  // Next.js 14 ReactDOM.preload is also an option but appending link manually gives us onload/onerror control.
+    let targetIndex = currentIndex;
+    
+    // Prioritize the visible video if the user jumps to it and it's not loaded
+    if (visibleIndex !== null && states[visibleIndex] !== 'loaded' && states[visibleIndex] !== 'preloading') {
+       targetIndex = visibleIndex;
+    } else {
+       // Otherwise, find the next unloaded video in sequence
+       let found = false;
+       for (let i = 0; i < products.length; i++) {
+         const idx = (currentIndex + i) % products.length;
+         const p = products[idx];
+         if (p.videoType === 'mp4' && p.videoSrc && states[idx] !== 'loaded' && states[idx] !== 'preloading') {
+           targetIndex = idx;
+           found = true;
+           break;
+         }
+       }
+       // If all videos are loaded, we are done
+       if (!found) return;
+    }
+
+    const product = products[targetIndex];
+    
+    // Skip if it's not an mp4 or missing src
+    if (product.videoType !== 'mp4' || !product.videoSrc) {
+       setPreloadState(targetIndex, 'loaded'); 
+       setCurrentIndex((targetIndex + 1) % products.length);
+       return;
+    }
+
+    // Lock and start loading
+    loadingRef.current = true;
+    setPreloadState(targetIndex, 'preloading');
+
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'video';
+    link.href = product.videoSrc;
+
+    const onComplete = () => {
+      loadingRef.current = false;
+      setPreloadState(targetIndex, 'loaded');
+      setCurrentIndex((targetIndex + 1) % products.length);
+    };
+
+    link.onload = onComplete;
+    link.onerror = onComplete;
+
+    document.head.appendChild(link);
+    
+  }, [currentIndex, visibleIndex, states, setPreloadState]);
+
   return null;
 }
