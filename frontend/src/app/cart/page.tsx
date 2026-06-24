@@ -73,9 +73,9 @@ export default function CartPage() {
                   </div>
                   <div>
                     <h4 className="text-white font-serif text-lg tracking-tight">Hazelnut Chocolate</h4>
-                    <p className="text-[#A31D33] font-bold mt-1">₹40.00</p>
+                    <p className="text-[#A31D33] font-bold mt-1">₹30.00</p>
                   </div>
-                  <Link href="/products/smoodh_hazelnut_chocolate" className="w-full py-2 bg-[#141011] border border-[#A31D33]/30 text-[#e1bec5] text-sm text-center rounded-lg font-bold tracking-wider uppercase hover:bg-[#A31D33] hover:text-white transition-colors active:scale-[0.98]">
+                  <Link href="/products/chocolate-hazelnut" className="w-full py-2 bg-[#141011] border border-[#A31D33]/30 text-[#e1bec5] text-sm text-center rounded-lg font-bold tracking-wider uppercase hover:bg-[#A31D33] hover:text-white transition-colors active:scale-[0.98]">
                     Shop Now
                   </Link>
                 </div>
@@ -87,9 +87,9 @@ export default function CartPage() {
                   </div>
                   <div>
                     <h4 className="text-white font-serif text-lg tracking-tight">Bailley Soda</h4>
-                    <p className="text-[#A31D33] font-bold mt-1">₹35.00</p>
+                    <p className="text-[#A31D33] font-bold mt-1">₹15.00</p>
                   </div>
-                  <Link href="/products/bailley_soda_pet" className="w-full py-2 bg-[#141011] border border-[#A31D33]/30 text-[#e1bec5] text-sm text-center rounded-lg font-bold tracking-wider uppercase hover:bg-[#A31D33] hover:text-white transition-colors active:scale-[0.98]">
+                  <Link href="/products/bailley-soda" className="w-full py-2 bg-[#141011] border border-[#A31D33]/30 text-[#e1bec5] text-sm text-center rounded-lg font-bold tracking-wider uppercase hover:bg-[#A31D33] hover:text-white transition-colors active:scale-[0.98]">
                     Shop Now
                   </Link>
                 </div>
@@ -101,9 +101,9 @@ export default function CartPage() {
                   </div>
                   <div>
                     <h4 className="text-white font-serif text-lg tracking-tight">Lemon Frio</h4>
-                    <p className="text-[#A31D33] font-bold mt-1">₹40.00</p>
+                    <p className="text-[#A31D33] font-bold mt-1">₹20.00</p>
                   </div>
-                  <Link href="/products/frio_lemon_pet" className="w-full py-2 bg-[#141011] border border-[#A31D33]/30 text-[#e1bec5] text-sm text-center rounded-lg font-bold tracking-wider uppercase hover:bg-[#A31D33] hover:text-white transition-colors active:scale-[0.98]">
+                  <Link href="/products/frio-lime" className="w-full py-2 bg-[#141011] border border-[#A31D33]/30 text-[#e1bec5] text-sm text-center rounded-lg font-bold tracking-wider uppercase hover:bg-[#A31D33] hover:text-white transition-colors active:scale-[0.98]">
                     Shop Now
                   </Link>
                 </div>
