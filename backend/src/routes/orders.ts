@@ -41,10 +41,10 @@ router.post("/", async (req: Request, res: Response) => {
       include: { inventory: true },
     });
 
-    const productMap = new Map(products.map(p => [p.id, p]));
+    const productMap = new Map(products.map((p: any) => [p.id, p]));
 
     for (const item of items) {
-      let product = productMap.get(item.productId);
+      let product: any = productMap.get(item.productId);
 
       if (!product) {
         product = await prisma.product.create({
