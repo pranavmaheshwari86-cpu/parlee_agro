@@ -60,7 +60,7 @@ export default function CartPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
             </svg>
             <h2 className="text-4xl text-[#C4A371] font-serif mb-4 tracking-tighter">Your cart is empty</h2>
-            <p className="text-[#888A95] mb-12">Looks like you haven't added any indulgence yet.</p>
+            <p className="text-[#888A95] mb-12">Looks like you haven&apos;t added any indulgence yet.</p>
             
             <div className="w-full max-w-4xl text-left border-t border-white/5 pt-12">
               <h3 className="text-2xl font-serif text-white mb-6 tracking-tighter">Trending Right Now</h3>

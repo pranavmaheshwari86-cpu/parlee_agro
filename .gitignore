@@ -1,30 +1,47 @@
-# dependencies
-/node_modules
-/.pnp
+# Dependencies
+node_modules/
+.pnp
 .pnp.js
 .yarn/install-state.gz
 
-# testing
-/coverage
+# Next.js
+.next/
+out/
 
-# next.js
-/.next/
-/out/
+# Production Build
+build/
+dist/
 
-# production
-/build
+# Playwright
+playwright-report/
+test-results/
+blob-report/
 
-# misc
-.DS_Store
-*.pem
+# Testing
+coverage/
 
-# debug
+# Logs
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# env files
-.env*.local
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.vercel
 
-# typescript
+# OS / Editor
+.DS_Store
+*.pem
+.idea/
+.vscode/
+*.swp
+
+# Generated
+/src/generated/prisma
 *.tsbuildinfo

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Script from "next/script";
 
 interface RazorpayCheckoutProps {
@@ -25,14 +25,7 @@ export default function RazorpayCheckout({ amount, orderId, onCreateOrder, onSuc
     }
   }, []);
 
-  useEffect(() => {
-    if (autoStart && scriptLoaded && !autoStartAttempted.current) {
-      autoStartAttempted.current = true;
-      handlePayment();
-    }
-  }, [autoStart, scriptLoaded]);
-
-  const handlePayment = async () => {
+  const handlePayment = useCallback(async () => {
     if (!scriptLoaded) {
       onError("Razorpay SDK failed to load. Are you online?");
       return;
@@ -119,7 +112,14 @@ export default function RazorpayCheckout({ amount, orderId, onCreateOrder, onSuc
     } finally {
       setLoading(false);
     }
-  };
+  }, [scriptLoaded, orderId, onCreateOrder, amount, onSuccess, onError]);
+
+  useEffect(() => {
+    if (autoStart && scriptLoaded && !autoStartAttempted.current) {
+      autoStartAttempted.current = true;
+      handlePayment();
+    }
+  }, [autoStart, scriptLoaded, handlePayment]);
 
   return (
     <>
