@@ -637,7 +637,7 @@ export const products: Product[] = [
   },
   {
     id: "frio-orange",
-    detailImage: "/Thumbnail/Frio_Orange.jpg",
+    detailImage: "/Thumbnail/Frio_Orange.png",
     name: "Frio Orange",
     subName: "Tangy. Vibrant. Bold.",
     price: "₹20",
