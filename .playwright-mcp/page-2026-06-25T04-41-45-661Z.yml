@@ -1,0 +1,161 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e3]:
+      - link "Parlee A g ro refreshing india" [ref=e4] [cursor=pointer]:
+        - /url: /#home
+        - generic [ref=e5]:
+          - generic [ref=e6]: Parlee
+          - generic [ref=e7]:
+            - text: A
+            - generic [ref=e8]: g
+            - text: ro
+        - img [ref=e9]
+        - generic [ref=e11]: refreshing india
+      - generic [ref=e12]:
+        - link "Home" [ref=e13] [cursor=pointer]:
+          - /url: /
+          - img [ref=e14]
+        - link "Smoodh" [ref=e17] [cursor=pointer]:
+          - /url: /#lassi
+          - text: Smoodh
+          - img [ref=e18]
+        - link "Fizz" [ref=e21] [cursor=pointer]:
+          - /url: /#appy-fizz
+          - text: Fizz
+          - img [ref=e22]
+        - link "Frio" [ref=e25] [cursor=pointer]:
+          - /url: /#frio-cola
+          - text: Frio
+          - img [ref=e26]
+        - link "Bombay 99" [ref=e29] [cursor=pointer]:
+          - /url: /#bombay99-club-soda
+          - text: Bombay 99
+          - img [ref=e30]
+        - link "Bailley" [ref=e33] [cursor=pointer]:
+          - /url: /#bailley-soda
+          - text: Bailley
+          - img [ref=e34]
+        - link "Frooti" [ref=e37] [cursor=pointer]:
+          - /url: /#frooti
+        - link "Dhishoom" [ref=e38] [cursor=pointer]:
+          - /url: /#dhishoom
+      - link "Open Cart" [ref=e40] [cursor=pointer]:
+        - /url: /cart
+        - img [ref=e41]
+  - main [ref=e43]:
+    - generic [ref=e51]:
+      - generic [ref=e53]:
+        - generic [ref=e54]: Parlee
+        - generic [ref=e55]: Agro
+      - paragraph [ref=e56]:
+        - generic [ref=e57]: Smooth
+        - generic [ref=e58]: sips.
+        - generic [ref=e59]: Bold
+        - generic [ref=e60]: flavors.
+        - generic [ref=e61]: Premium
+        - generic [ref=e62]: lassi,
+        - generic [ref=e63]: flavoured
+        - generic [ref=e64]: milk,
+        - generic [ref=e65]: refreshing
+        - generic [ref=e66]: juices,
+        - generic [ref=e67]: and
+        - generic [ref=e68]: sparkling
+        - generic [ref=e69]: beverages
+        - generic [ref=e70]: from
+        - generic [ref=e71]: the
+        - generic [ref=e72]: house
+        - generic [ref=e73]: of
+        - generic [ref=e74]: Parlee
+        - generic [ref=e75]: Agro.
+      - generic [ref=e76]:
+        - link "Start the journey" [ref=e77] [cursor=pointer]:
+          - /url: "#lassi"
+          - generic [ref=e78]: Start the journey
+        - generic [ref=e80]: ↓
+  - contentinfo [ref=e151]:
+    - generic [ref=e152]:
+      - generic [ref=e153]:
+        - paragraph [ref=e154]: Smoodh
+        - paragraph [ref=e155]: by Parlee Agro
+        - paragraph [ref=e156]: Premium flavoured milk & lassi. Smooth sips, bold flavors — crafted for every moment.
+      - generic [ref=e157]:
+        - heading "Shop" [level=3] [ref=e158]
+        - list [ref=e159]:
+          - listitem [ref=e160]:
+            - link "Smoodh Lassi" [ref=e161] [cursor=pointer]:
+              - /url: "#lassi"
+          - listitem [ref=e162]:
+            - link "Smoodh Chocolate" [ref=e163] [cursor=pointer]:
+              - /url: "#chocolate"
+          - listitem [ref=e164]:
+            - link "Smoodh Chocolate Hazelnut" [ref=e165] [cursor=pointer]:
+              - /url: "#chocolate-hazelnut"
+          - listitem [ref=e166]:
+            - link "Smoodh Coffee Frappe" [ref=e167] [cursor=pointer]:
+              - /url: "#coffee-frappe"
+          - listitem [ref=e168]:
+            - link "Smoodh Kesar Badam" [ref=e169] [cursor=pointer]:
+              - /url: "#kesar-badam"
+          - listitem [ref=e170]:
+            - link "Smoodh Toffee Caramel" [ref=e171] [cursor=pointer]:
+              - /url: "#toffee-caramel"
+          - listitem [ref=e172]:
+            - link "Appy Fizz" [ref=e173] [cursor=pointer]:
+              - /url: "#appy-fizz"
+          - listitem [ref=e174]:
+            - link "B Fizz" [ref=e175] [cursor=pointer]:
+              - /url: "#b-fizz"
+          - listitem [ref=e176]:
+            - link "Frooti" [ref=e177] [cursor=pointer]:
+              - /url: "#frooti"
+          - listitem [ref=e178]:
+            - link "Frio Cola" [ref=e179] [cursor=pointer]:
+              - /url: "#frio-cola"
+          - listitem [ref=e180]:
+            - link "Frio Lime" [ref=e181] [cursor=pointer]:
+              - /url: "#frio-lime"
+          - listitem [ref=e182]:
+            - link "Frio Orange" [ref=e183] [cursor=pointer]:
+              - /url: "#frio-orange"
+          - listitem [ref=e184]:
+            - link "Bombay 99 Club Soda" [ref=e185] [cursor=pointer]:
+              - /url: "#bombay99-club-soda"
+          - listitem [ref=e186]:
+            - link "Bombay 99 Ginger Ale" [ref=e187] [cursor=pointer]:
+              - /url: "#bombay99-ginger-ale"
+          - listitem [ref=e188]:
+            - link "Bombay 99 Tonic Water" [ref=e189] [cursor=pointer]:
+              - /url: "#bombay99-tonic-water"
+          - listitem [ref=e190]:
+            - link "Bailley Soda Water" [ref=e191] [cursor=pointer]:
+              - /url: "#bailley-soda"
+          - listitem [ref=e192]:
+            - link "Bailley Water" [ref=e193] [cursor=pointer]:
+              - /url: "#bailley-water"
+          - listitem [ref=e194]:
+            - link "Dhishoom" [ref=e195] [cursor=pointer]:
+              - /url: "#dhishoom"
+      - generic [ref=e196]:
+        - heading "Support" [level=3] [ref=e197]
+        - list [ref=e198]:
+          - listitem [ref=e199]:
+            - link "Contact Us" [ref=e200] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e201]:
+            - link "Store Locator" [ref=e202] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e203]:
+            - link "FAQs" [ref=e204] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e205]:
+            - link "Privacy Policy" [ref=e206] [cursor=pointer]:
+              - /url: "#"
+      - generic [ref=e207]:
+        - heading "Newsletter" [level=3] [ref=e208]
+        - paragraph [ref=e209]: Get drops, deals & smooth sips news.
+        - generic [ref=e210]:
+          - textbox "Email for newsletter" [ref=e211]:
+            - /placeholder: you@email.com
+          - button "Join" [ref=e212] [cursor=pointer]
+    - generic [ref=e213]: © 2026 Parlee Agro. Smoodh is a registered brand. All rights reserved.
+  - alert [ref=e214]
