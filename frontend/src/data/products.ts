@@ -34,7 +34,7 @@ export interface Product {
 export const products: Product[] = [
   {
     id: "lassi",
-    detailImage: "/Thumbnail/Smoodh_Lassi.jpeg",
+    detailImage: "/Thumbnail/Smoodh_Lassi.jpg",
     name: "Smoodh Lassi",
     subName: "Creamy tradition.",
     price: "₹20",
@@ -91,7 +91,7 @@ export const products: Product[] = [
   },
   {
     id: "chocolate",
-    detailImage: "/Thumbnail/Smoodh_Chocolate.jpeg",
+    detailImage: "/Thumbnail/Smoodh_Chocolate.jpg",
     name: "Smoodh Chocolate",
     subName: "Velvety indulgence.",
     price: "₹20",
@@ -147,7 +147,7 @@ export const products: Product[] = [
   },
   {
     id: "chocolate-hazelnut",
-    detailImage: "/Thumbnail/Smoodh_Chocolate_Hazelnut.jpeg",
+    detailImage: "/Thumbnail/Smoodh_Chocolate_Hazelnut.jpg",
     name: "Smoodh Chocolate Hazelnut",
     subName: "Nutty perfection.",
     price: "₹20",
@@ -209,7 +209,7 @@ export const products: Product[] = [
   },
   {
     id: "coffee-frappe",
-    detailImage: "/Thumbnail/Smoodh_Coffee_Frape.jpeg",
+    detailImage: "/Thumbnail/Smoodh_Coffee_Frape.jpg",
     name: "Smoodh Coffee Frappe",
     subName: "Café style refreshment.",
     price: "₹20",
@@ -377,7 +377,7 @@ export const products: Product[] = [
   },
   {
     id: "appy-fizz",
-    detailImage: "/Thumbnail/Appy_Fizz.jpeg",
+    detailImage: "/Thumbnail/Appy_Fizz.jpg",
     name: "Appy Fizz",
     subName: "Electrifying Sparkle.",
     price: "₹20",
@@ -480,7 +480,7 @@ export const products: Product[] = [
   },
   {
     id: "frooti",
-    detailImage: "/Thumbnail/Frooti.jpeg",
+    detailImage: "/Thumbnail/Frooti.jpg",
     name: "Frooti",
     subName: "Fresh 'N' Juicy",
     price: "₹20",
@@ -534,7 +534,7 @@ export const products: Product[] = [
   },
   {
     id: "frio-cola",
-    detailImage: "/Thumbnail/Frio_Cola.jpeg",
+    detailImage: "/Thumbnail/Frio_Cola.jpg",
     name: "Frio Cola",
     subName: "Dark. Bold. Fizzy.",
     price: "₹20",
@@ -637,7 +637,7 @@ export const products: Product[] = [
   },
   {
     id: "frio-orange",
-    detailImage: "/Thumbnail/Frio_Orange.jpeg",
+    detailImage: "/Thumbnail/Frio_Orange.jpg",
     name: "Frio Orange",
     subName: "Tangy. Vibrant. Bold.",
     price: "₹20",

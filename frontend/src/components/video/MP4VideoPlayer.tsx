@@ -2,7 +2,6 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { useVideoPreloadStore } from '@/store/useVideoPreloadStore';
 
 interface MP4VideoPlayerProps {
   src: string;
@@ -29,33 +28,28 @@ export default function MP4VideoPlayer({
 }: MP4VideoPlayerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [shouldLoad, setShouldLoad] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isVideoReady, setIsVideoReady] = useState(false);
   
-  const setVisibleIndex = useVideoPreloadStore((state) => state.setVisibleIndex);
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setShouldLoad(true);
-          if (index !== undefined) {
-            setVisibleIndex(index);
-          }
-          // Only play if it was already loaded, otherwise let autoPlay handle it, or use a separate effect
+          // Play the video when it comes into view
           if (videoRef.current && videoRef.current.src) {
              videoRef.current.play().catch(e => console.log('Play prevented:', e));
              setIsPlaying(true);
           }
         } else {
+          // Pause the video when it leaves the view
           if (videoRef.current && !videoRef.current.paused) {
             videoRef.current.pause();
             setIsPlaying(false);
           }
         }
       },
-      { rootMargin: '200px' }
+      { rootMargin: '1200px' }
     );
 
     if (containerRef.current) {
@@ -63,7 +57,7 @@ export default function MP4VideoPlayer({
     }
 
     return () => observer.disconnect();
-  }, [index, setVisibleIndex]);
+  }, []);
 
   useEffect(() => {
     if (shouldLoad && autoPlay && videoRef.current) {
