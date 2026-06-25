@@ -122,7 +122,7 @@ export default function RazorpayCheckout({ amount, orderId, onCreateOrder, onSuc
     } finally {
       setLoading(false);
     }
-  }, [scriptLoaded, orderId, onCreateOrder, amount, onSuccess, onError]);
+  }, [orderId, onCreateOrder, amount, onSuccess, onError]);
 
   useEffect(() => {
     if (autoStart && scriptLoaded && !autoStartAttempted.current) {
