@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import SmoothScrolling from "@/components/SmoothScrolling";
-import CartDrawer from "@/components/CartDrawer";
+import dynamic from "next/dynamic";
+
+const CartDrawer = dynamic(() => import("@/components/CartDrawer"), { ssr: false });
 
 const inter = Inter({
   subsets: ["latin"],
@@ -69,6 +71,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="preload" href="/_next/static/media/8e9860b6e62d6359-s.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased bg-gray-50`}>
         <CartDrawer />
