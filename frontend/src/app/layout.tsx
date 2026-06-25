@@ -69,7 +69,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="preload" as="font" type="font/woff2" crossOrigin="anonymous" href="/media/8e9860b6e62d6359-s.woff2" />
       </head>
       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased bg-gray-50`}>
         <CartDrawer />

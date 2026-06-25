@@ -47,7 +47,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               fill
               className="object-cover opacity-95 transition-opacity hover:opacity-100"
               sizes="(max-width: 1024px) 100vw, 50vw"
-              unoptimized={true}
+              quality={85}
             />
           </div>
 
