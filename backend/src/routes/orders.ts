@@ -22,7 +22,7 @@ router.post("/", async (req: Request, res: Response) => {
     const userId = req.header("x-user-id");
 
     if (idempotencyKey) {
-      const existingOrder = await prisma.order.findUnique({
+      const existingOrder = await prisma.order.findFirst({
         where: { idempotencyKey },
         include: { items: true },
       });

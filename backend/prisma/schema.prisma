@@ -84,7 +84,7 @@ model Inventory {
 
 model Order {
   id             String      @id @default(auto()) @map("_id") @db.ObjectId
-  idempotencyKey String?     @unique
+  idempotencyKey String?
   userId         String?     @db.ObjectId
   user           User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
   name           String
@@ -110,6 +110,7 @@ model Order {
   items          OrderItem[]
   payments       Payment[]
 
+  @@index([idempotencyKey])
   @@index([userId])
   @@index([status])
   @@index([createdAt])
@@ -133,7 +134,7 @@ model Payment {
   user              User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
   orderId           String   @db.ObjectId
   order             Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  paymentId         String?  @unique // Razorpay payment ID (optional initially)
+  paymentId         String?
   razorpayOrderId   String   @unique
   razorpaySignature String?
   amount            Float
@@ -148,6 +149,7 @@ model Payment {
 
   events            PaymentEvent[]
 
+  @@index([paymentId])
   @@index([userId])
   @@index([orderId])
   @@index([status])

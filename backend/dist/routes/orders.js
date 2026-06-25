@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
         // Get userId from secure header passed by Next.js frontend proxy
         const userId = req.header("x-user-id");
         if (idempotencyKey) {
-            const existingOrder = await prisma_1.prisma.order.findUnique({
+            const existingOrder = await prisma_1.prisma.order.findFirst({
                 where: { idempotencyKey },
                 include: { items: true },
             });
