@@ -26,7 +26,7 @@ function TextSection({ title, subtitle, opacity, y, isDark }: TextSectionProps) 
       <div className="mx-auto max-w-4xl text-center">
         <h2
           className={`text-3xl sm:text-4xl font-bold leading-tight tracking-tight md:text-6xl lg:text-7xl font-serif ${
-            isDark ? "text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]" : "text-gray-900 drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)]"
+            isDark ? "text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]" : "text-gray-900 drop-shadow-[0_4px_16px_rgba(255,255,255,0.8)]"
           }`}
         >
           {title}
@@ -34,7 +34,7 @@ function TextSection({ title, subtitle, opacity, y, isDark }: TextSectionProps) 
         {subtitle ? (
           <p
             className={`mx-auto mt-4 max-w-2xl text-lg font-light md:text-xl ${
-              isDark ? "text-white/80" : "text-gray-700"
+              isDark ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" : "text-gray-900 drop-shadow-[0_2px_8px_rgba(255,255,255,0.8)]"
             }`}
           >
             {subtitle}

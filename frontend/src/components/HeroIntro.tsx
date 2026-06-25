@@ -14,9 +14,24 @@ export default function HeroIntro() {
         className="relative z-10 flex min-h-screen scroll-mt-20 flex-col items-center justify-center overflow-hidden px-4 sm:px-6 pt-20 pb-12 text-center"
       >
 
+      {/* Background MP4 Video */}
+      <div className="absolute inset-0 z-0">
+        <video
+          className="w-full h-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="/videos/mp4/hero_background.mp4" type="video/mp4" />
+        </video>
+        {/* Dark overlay to make text readable */}
+        <div className="absolute inset-0 bg-black/60" />
+      </div>
+
       {/* Abstract background elements for extra glassmorphic depth */}
-      <div className="absolute top-1/4 left-1/4 h-64 w-64 rounded-full bg-pink-300/30 blur-[80px]" />
-      <div className="absolute bottom-1/4 right-1/4 h-80 w-80 rounded-full bg-fuchsia-300/30 blur-[100px]" />
+      <div className="absolute top-1/4 left-1/4 h-64 w-64 rounded-full bg-pink-300/10 blur-[80px]" />
+      <div className="absolute bottom-1/4 right-1/4 h-80 w-80 rounded-full bg-fuchsia-300/10 blur-[100px]" />
 
       <div className="relative z-10">
 
@@ -29,7 +44,7 @@ export default function HeroIntro() {
         />
 
         <motion.p
-          className="mx-auto mt-6 max-w-2xl text-fluid-p font-light text-gray-300 flex flex-wrap justify-center gap-x-[0.25em]"
+          className="mx-auto mt-6 max-w-2xl text-fluid-p font-light text-white flex flex-wrap justify-center gap-x-[0.25em]"
           animate="visible"
           variants={{
             visible: { transition: { staggerChildren: 0.12, delayChildren: 0.3 } },

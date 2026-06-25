@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import Script from "next/script";
 
 interface RazorpayCheckoutProps {
   amount: number;
@@ -26,14 +25,25 @@ export default function RazorpayCheckout({ amount, orderId, onCreateOrder, onSuc
   }, []);
 
   const handlePayment = useCallback(async () => {
-    if (!scriptLoaded) {
-      onError("Razorpay SDK failed to load. Are you online?");
-      return;
-    }
-
     setLoading(true);
 
     try {
+      // 0. Load Razorpay SDK on demand
+      const isScriptLoaded = await new Promise((resolve) => {
+        if (typeof window !== "undefined" && (window as any).Razorpay) {
+          resolve(true);
+          return;
+        }
+        const script = document.createElement("script");
+        script.src = "https://checkout.razorpay.com/v1/checkout.js";
+        script.onload = () => resolve(true);
+        script.onerror = () => resolve(false);
+        document.body.appendChild(script);
+      });
+
+      if (!isScriptLoaded) {
+        throw new Error("Razorpay SDK failed to load. Are you online?");
+      }
       let finalOrderId = orderId;
       if (onCreateOrder) {
         finalOrderId = await onCreateOrder();
@@ -123,12 +133,6 @@ export default function RazorpayCheckout({ amount, orderId, onCreateOrder, onSuc
 
   return (
     <>
-      <Script
-        id="razorpay-checkout-js"
-        src="https://checkout.razorpay.com/v1/checkout.js"
-        strategy="lazyOnload"
-        onLoad={() => setScriptLoaded(true)}
-      />
       <button
         onClick={handlePayment}
         disabled={loading}

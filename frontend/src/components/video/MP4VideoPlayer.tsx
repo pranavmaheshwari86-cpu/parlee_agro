@@ -28,7 +28,7 @@ export default function MP4VideoPlayer({
 }: MP4VideoPlayerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [shouldLoad, setShouldLoad] = useState(true);
+  const [shouldLoad, setShouldLoad] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isVideoReady, setIsVideoReady] = useState(false);
   
@@ -36,6 +36,7 @@ export default function MP4VideoPlayer({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          setShouldLoad(true);
           // Play the video when it comes into view
           if (videoRef.current && videoRef.current.src) {
              videoRef.current.play().catch(e => console.log('Play prevented:', e));
@@ -49,7 +50,7 @@ export default function MP4VideoPlayer({
           }
         }
       },
-      { rootMargin: '1200px' }
+      { rootMargin: '200px' }
     );
 
     if (containerRef.current) {
@@ -88,17 +89,17 @@ export default function MP4VideoPlayer({
           muted={muted}
           controls={controls}
           playsInline={playsInline}
-          preload="auto"
+          preload="none"
           onCanPlay={() => setIsVideoReady(true)}
           className={`w-full h-full object-cover transition-opacity duration-500 ${isVideoReady ? 'opacity-100' : 'opacity-0'}`}
           style={{
             backfaceVisibility: 'hidden',
-            willChange: isPlaying ? 'transform' : 'auto',
+            willChange: isPlaying ? 'transform' : undefined,
           }}
         />
       )}
       {poster && (!shouldLoad || !isVideoReady) && (
-        <Image src={poster} alt="" fill className="object-cover" unoptimized={true} priority={true} />
+        <Image src={poster} alt="" fill className="object-cover" priority={index === 0} />
       )}
     </div>
   );

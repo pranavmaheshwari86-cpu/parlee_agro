@@ -79,7 +79,7 @@ export default function ProductVideoScroll({
         </div>
         
         {/* Static dark overlay for text readability */}
-        <div className="pointer-events-none absolute inset-0 bg-black/10 z-10" />
+        <div className="pointer-events-none absolute inset-0 bg-black/20 z-10" />
       </div>
 
       {/* TEXT OVERLAYS ON TOP */}

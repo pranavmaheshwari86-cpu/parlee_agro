@@ -284,9 +284,9 @@ export default function CartDrawer() {
                           </div>
                           <div className="h-1.5 w-full bg-neutral-200/60 rounded-full overflow-hidden">
                             <motion.div
-                              className="h-full bg-gradient-to-r from-pink-400 to-pink-600"
-                              initial={{ width: 0 }}
-                              animate={{ width: `${freeShippingProgress}%` }}
+                              className="h-full bg-gradient-to-r from-pink-400 to-pink-600 origin-left"
+                              initial={{ scaleX: 0 }}
+                              animate={{ scaleX: freeShippingProgress / 100 }}
                               transition={{ duration: 0.5, ease: "easeOut" }}
                             />
                           </div>

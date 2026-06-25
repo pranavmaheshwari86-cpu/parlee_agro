@@ -11,6 +11,7 @@ import { useLenis } from "lenis/react";
 
 const ProductFlavorSection = dynamic(() => import('@/components/ProductFlavorSection'), {
   ssr: false,
+  loading: () => <ProductSkeleton />
 });
 
 function LazySection({ children, gradient, forceVisible }: { children: React.ReactNode; gradient?: string; forceVisible?: boolean }) {
